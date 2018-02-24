@@ -57,5 +57,15 @@ public:
 	~TriPyramid() { };
 	virtual void draw();
 };
+//-------------------------------------------------------------------------
+class ContCubo : public Entity
+{
+public:
+	ContCubo(GLdouble l);
+	~ContCubo() { };
+	virtual void draw();
+};
+
+
 
 #endif //_H_Entities_H_

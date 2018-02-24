@@ -85,3 +85,17 @@ void TriPyramid::draw()
 	glLineWidth(1);
 }
 //-------------------------------------------------------------------------
+ContCubo::ContCubo(GLdouble l) : Entity()
+{
+	mesh = Mesh::generateContCubo(l);
+}
+//-------------------------------------------------------------------------
+
+void ContCubo::draw()
+{
+	glLineWidth(2);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	mesh->draw();
+	glLineWidth(1);
+}
+//-------------------------------------------------------------------------

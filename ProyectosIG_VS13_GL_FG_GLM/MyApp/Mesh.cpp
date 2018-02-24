@@ -104,15 +104,46 @@ Mesh* Mesh::generateTriPyramid(GLdouble r, GLdouble h)
 	m->vertices[0] = dvec3(0.0, r, 0.0);
 	m->vertices[1] = dvec3(r*cos(radians(30.0)), r*sin(radians(330.0)), 0.0);
 	m->vertices[2] = dvec3(r*cos(radians(210.0)), r*sin(radians(330.0)), 0.0);
-	m->vertices[3] = dvec3(0.0, r*sin(radians(30.0)), h);
+	m->vertices[3] = dvec3(0.0, r*sin(radians(0.0)), h);
 	m->vertices[4] = dvec3(r*cos(radians(30.0)), r*sin(radians(330.0)), 0.0);
 
 	m->colors = new dvec4[m->numVertices];
 	m->colors[0] = dvec4(1.0, 0.0, 0.0, 1.0);
 	m->colors[1] = dvec4(0.0, 1.0, 0.0, 1.0);
 	m->colors[2] = dvec4(0.0, 0.0, 1.0, 1.0);
-	m->colors[3] = dvec4(1.0, 1.0, 1.0, 1.0);
-	m->colors[4] = dvec4(0.0, 0.0, 1.0, 1.0);
+	m->colors[3] = dvec4(1.0, 1.0, 0.0, 1.0);
+	m->colors[4] = dvec4(0.0, 1.0, 0.0, 1.0);
 
+	return m;
+}
+//-------------------------------------------------------------------------
+Mesh* Mesh::generateContCubo(GLdouble l)
+{
+	Mesh* m = new Mesh();
+	m->type = GL_TRIANGLE_STRIP;
+	m->numVertices = 10;
+
+	m->vertices = new dvec3[m->numVertices];
+	m->vertices[0] = dvec3(l / 2, l / 2, l / 2);
+	m->vertices[1] = dvec3(l / 2, -l / 2, l / 2);
+
+	m->vertices[2] = dvec3(-l / 2, l / 2, l / 2);
+	m->vertices[3] = dvec3(-l / 2, -l / 2, l / 2);
+
+	m->vertices[4] = dvec3(-l / 2, l / 2, -l / 2);
+	m->vertices[5] = dvec3(-l / 2, -l / 2, -l / 2);
+
+	m->vertices[6] = dvec3(l / 2, l / 2, -l / 2);
+	m->vertices[7] = dvec3(l / 2, -l / 2, -l / 2);
+
+	m->vertices[8] = dvec3(l / 2, l / 2, l / 2);
+	m->vertices[9] = dvec3(l / 2, -l / 2, l / 2);
+
+
+	m->colors = new dvec4[m->numVertices];
+
+	for (int i = 0; i < m->numVertices; i++){
+		m->colors[i] = dvec4(0.0, 0.0, 0.0, 1.0);
+	}
 	return m;
 }
