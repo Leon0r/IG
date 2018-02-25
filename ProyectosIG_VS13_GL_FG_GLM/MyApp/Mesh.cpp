@@ -108,11 +108,11 @@ Mesh* Mesh::generateTriPyramid(GLdouble r, GLdouble h)
 	m->vertices[4] = dvec3(r*cos(radians(30.0)), r*sin(radians(330.0)), 0.0);
 
 	m->colors = new dvec4[m->numVertices];
-	m->colors[0] = dvec4(1.0, 0.0, 0.0, 1.0);
-	m->colors[1] = dvec4(0.0, 1.0, 0.0, 1.0);
-	m->colors[2] = dvec4(0.0, 0.0, 1.0, 1.0);
-	m->colors[3] = dvec4(1.0, 1.0, 0.0, 1.0);
-	m->colors[4] = dvec4(0.0, 1.0, 0.0, 1.0);
+	m->colors[0] = dvec4(0.0, 1.0, 1.0, 1.0);
+	m->colors[1] = dvec4(0.0, 1.0, 1.0, 1.0);
+	m->colors[2] = dvec4(0.0, 1.0, 1.0, 1.0);
+	m->colors[3] = dvec4(0.0, 1.0, 1.0, 1.0);
+	m->colors[4] = dvec4(0.0, 1.0, 1.0, 1.0);
 
 	return m;
 }

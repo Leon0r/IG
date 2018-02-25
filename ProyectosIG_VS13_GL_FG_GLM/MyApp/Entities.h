@@ -65,7 +65,15 @@ public:
 	~ContCubo() { };
 	virtual void draw();
 };
-
+//-------------------------------------------------------------------------
+class Diabolo : public Entity
+{
+public:
+	Diabolo(GLdouble r, GLdouble h);
+	~Diabolo() { };
+	virtual void draw();
+	virtual void render(glm::dmat4 const& modelViewMat);
+};
 
 
 #endif //_H_Entities_H_

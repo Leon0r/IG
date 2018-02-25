@@ -99,3 +99,41 @@ void ContCubo::draw()
 	glLineWidth(1);
 }
 //-------------------------------------------------------------------------
+
+Diabolo::Diabolo(GLdouble r, GLdouble h) : Entity()
+{
+	mesh = Mesh::generateTriPyramid(r, h);
+}
+//-------------------------------------------------------------------------
+
+void Diabolo::draw()
+{
+	glLineWidth(2);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	mesh->draw();
+	glLineWidth(1);
+}
+
+void Diabolo::render(dmat4 const& modelViewMat){
+	dmat4 aMat = modelViewMat*modelMat;
+	aMat = translate(aMat, dvec3(0, 0, -100.0));
+	aMat = rotate(aMat, radians(0.0), dvec3(0, 0, 1));
+	mesh->draw();
+	Entity::render(aMat);
+	aMat = translate(aMat, dvec3(0, 0, 0.0));
+	aMat = rotate(aMat, radians(60.0), dvec3(0, 0, 1));
+	mesh->draw();
+	Entity::render(aMat);
+
+	aMat = rotate(aMat, radians(180.0), dvec3(0, 1, 0));
+
+	aMat = translate(aMat, dvec3(0, 0, -200.0));
+	aMat = rotate(aMat, radians(0.0), dvec3(0, 0, 1));
+	mesh->draw();
+	Entity::render(aMat);
+	aMat = translate(aMat, dvec3(0, 0, 0.0));
+	aMat = rotate(aMat, radians(60.0), dvec3(0, 0, 1));
+	mesh->draw();
+	Entity::render(aMat);
+}
+//-------------------------------------------------------------------------
