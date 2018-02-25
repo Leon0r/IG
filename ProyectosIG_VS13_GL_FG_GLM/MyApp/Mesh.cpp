@@ -147,3 +147,86 @@ Mesh* Mesh::generateContCubo(GLdouble l)
 	}
 	return m;
 }
+//-------------------------------------------------------------------------
+Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h)
+{
+	Mesh* m = new Mesh();
+	m->type = GL_TRIANGLE_STRIP;
+	m->numVertices = 4;
+
+	m->vertices = new dvec3[m->numVertices];
+	m->vertices[0] = dvec3(-w / 2, h / 2, 0);
+	m->vertices[1] = dvec3(-w / 2, -h / 2, 0);
+
+	m->vertices[2] = dvec3(w / 2, h / 2, 0);
+	m->vertices[3] = dvec3(w / 2, -h / 2, 0);
+
+	m->colors = new dvec4[m->numVertices];
+
+	for (int i = 0; i < m->numVertices; i++){
+		m->colors[i] = dvec4(0.0, 0.0, 0.0, 1.0);
+	}
+	return m;
+}
+//-------------------------------------------------------------------------
+Mesh* Mesh::generateDragon(GLuint numVert){
+	Mesh* m = new Mesh();
+	m->type = GL_POINTS;
+	m->numVertices = numVert;
+	m->vertices = new dvec3[m->numVertices];
+
+	m->vertices[0] = dvec3(0.0, 0.0, 0.0);
+	
+	double auxX, auxY;
+	for (int i = 1; i < m->numVertices; i++){
+		auxX = m->vertices[i - 1].x;
+		auxY = m->vertices[i - 1].y;
+
+		TDragon(auxX, auxY);
+
+		m->vertices[i] = dvec3(auxX, auxY, 0.0);
+	}
+
+	m->colors = new dvec4[m->numVertices];
+
+	for (int i = 0; i < m->numVertices; i++){
+		m->colors[i] = dvec4(0.0, 0.0, 0.0, 1.0);
+	}
+	return m;
+}
+//-------------------------------------------------------------------------
+
+void Mesh::TDragon(double& x, double& y){
+	double PR1 = 0.787473;
+
+	double azar = rand() / double(RAND_MAX);
+
+	if (azar < PR1)
+		T1(x, y);
+	else
+		T2(x, y);
+}
+void Mesh::T1(double& x, double& y){
+	x = 0.824074 * x + 0.281482 * y - 0.882290;
+	y = - 0.212346 * x + 0.864198 * y - 0.110607;
+}
+void Mesh::T2(double& x, double& y){
+	x = 0.088272 * x + 0.520988 * y + 0.785360;
+	y = -0.463889 * x - 0.377778 * y + 8.095795;
+}
+//-------------------------------------------------------------------------
+
+Mesh* Mesh::generatePoliespiral(dvec2 verIni, GLdouble angIni, GLdouble increAng,
+	GLdouble ladoIni, GLdouble incrLado, GLuint numVert){
+	Mesh* m = new Mesh();
+	m->type = GL_LINE_STRIP;
+	m->numVertices = numVert;
+
+	m->colors = new dvec4[m->numVertices];
+
+	for (int i = 0; i < m->numVertices; i++){
+		m->colors[i] = dvec4(0.0, 0.0, 0.0, 1.0);
+	}
+	return m;
+}
+//-------------------------------------------------------------------------

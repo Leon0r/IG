@@ -69,11 +69,41 @@ public:
 class Diabolo : public Entity
 {
 public:
+	GLdouble angle = 0;
+
 	Diabolo(GLdouble r, GLdouble h);
 	~Diabolo() { };
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
+	void incrementaAngulo();
 };
+//-------------------------------------------------------------------------
+class Cubo : public Entity
+{
+public:
+	Mesh* mesh2 = nullptr;
 
-
+	Cubo(GLdouble l);
+	~Cubo() { };
+	virtual void draw();
+	virtual void render(glm::dmat4 const& modelViewMat);
+};
+//-------------------------------------------------------------------------
+class Dragon : public Entity
+{
+public:
+	Dragon(GLuint numVert);
+	~Dragon() { };
+	virtual void draw();
+};
+//-------------------------------------------------------------------------
+class Poliespiral : public Entity
+{
+public:
+	Poliespiral(glm::dvec2 verIni, GLdouble angIni, GLdouble increAng,
+		GLdouble ladoIni, GLdouble incrLado, GLuint numVert);
+	~Poliespiral() { };
+	virtual void draw();
+};
+//-------------------------------------------------------------------------
 #endif //_H_Entities_H_
