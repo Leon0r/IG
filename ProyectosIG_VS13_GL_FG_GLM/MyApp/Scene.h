@@ -8,6 +8,7 @@
 #include "Entities.h"
 
 //-------------------------------------------------------------------------
+using namespace std;
 
 class Scene	
 { 
@@ -15,11 +16,18 @@ public:
     Scene(Camera* cam): camera(cam) { };
 	  ~Scene();
     void init();
-	  void render();    
+	  void render();
+
 	  
 protected:
 	  Camera* camera;
-	  std::vector<Entity*> objetos;
+	  vector<Entity*> objetos;
+	  vector<pair<int, int>> pares;
+	  int h, w;
+
+	  int countElements();
+	  void findNewSize();
+	  void findPositions(int numElements);
 };
 
 //-------------------------------------------------------------------------

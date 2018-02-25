@@ -15,6 +15,13 @@ using namespace glm;
  }
  //-------------------------------------------------------------------------
 
+ void Viewport::setPosition(GLsizei ax, GLsizei ay){
+	 x = ax;
+	 y = ay;
+	 set();
+ }
+ //-------------------------------------------------------------------------
+
  void Viewport::set() 
  { 
    glViewport(x, y, w, h);

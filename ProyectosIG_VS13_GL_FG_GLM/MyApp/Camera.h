@@ -13,6 +13,7 @@ public:
   ~Viewport() { };
 
   void setSize(GLsizei aw, GLsizei ah);
+  void setPosition(GLsizei ax, GLsizei ay);
  
   GLsizei getX() { return x; };
   GLsizei getY() { return y; };
