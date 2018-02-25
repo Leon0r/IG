@@ -33,7 +33,6 @@ EjesRGB::EjesRGB(GLdouble l): Entity()
 {
   mesh = Mesh::generateAxesRGB(l);
 }
-//-------------------------------------------------------------------------
 
 void EjesRGB::draw()
 {
@@ -47,7 +46,6 @@ Triangle::Triangle(GLdouble r) : Entity()
 {
 	mesh = Mesh::generateTriangle(r);
 }
-//-------------------------------------------------------------------------
 
 void Triangle::draw()
 {
@@ -57,11 +55,11 @@ void Triangle::draw()
 	glLineWidth(1);
 }
 //-------------------------------------------------------------------------
+
 TriangleRGB::TriangleRGB(GLdouble r) : Entity()
 {
 	mesh = Mesh::generateTriangleRGB(r);
 }
-//-------------------------------------------------------------------------
 
 void TriangleRGB::draw()
 {
@@ -71,11 +69,11 @@ void TriangleRGB::draw()
 	glLineWidth(1);
 }
 //-------------------------------------------------------------------------
+
 TriPyramid::TriPyramid(GLdouble r, GLdouble h) : Entity()
 {
 	mesh = Mesh::generateTriPyramid(r, h);
 }
-//-------------------------------------------------------------------------
 
 void TriPyramid::draw()
 {
@@ -85,11 +83,11 @@ void TriPyramid::draw()
 	glLineWidth(1);
 }
 //-------------------------------------------------------------------------
+
 ContCubo::ContCubo(GLdouble l) : Entity()
 {
 	mesh = Mesh::generateContCubo(l);
 }
-//-------------------------------------------------------------------------
 
 void ContCubo::draw()
 {
@@ -104,19 +102,19 @@ Diabolo::Diabolo(GLdouble r, GLdouble h) : Entity()
 {
 	mesh = Mesh::generateTriPyramid(r, h);
 }
-//-------------------------------------------------------------------------
 
 void Diabolo::draw()
 {
 	glLineWidth(2);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	mesh->draw();
 	glLineWidth(1);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
 void Diabolo::render(dmat4 const& modelViewMat){
 	dmat4 aMat = modelViewMat*modelMat;
-	aMat = translate(aMat, dvec3(0, 0, -100.0));
+	aMat = translate(aMat, dvec3(0, 0, -200.0));
 	aMat = rotate(aMat, angle, dvec3(0, 0, 1));
 	aMat = rotate(aMat, radians(0.0), dvec3(0, 0, 1));
 	Entity::render(aMat);
@@ -127,7 +125,7 @@ void Diabolo::render(dmat4 const& modelViewMat){
 
 	aMat = rotate(aMat, radians(180.0), dvec3(0, 1, 0));
 
-	aMat = translate(aMat, dvec3(0, 0, -200.0));
+	aMat = translate(aMat, dvec3(0, 0, -400.0));
 	aMat = rotate(aMat, angle, dvec3(0, 0, 1));
 	aMat = rotate(aMat, radians(0.0), dvec3(0, 0, 1));
 	Entity::render(aMat);
@@ -136,17 +134,17 @@ void Diabolo::render(dmat4 const& modelViewMat){
 	aMat = rotate(aMat, radians(60.0), dvec3(0, 0, 1));
 	Entity::render(aMat);
 }
-//-------------------------------------------------------------------------
+
 void Diabolo::incrementaAngulo(){
 	angle += 5.0;
 }
 //-------------------------------------------------------------------------
+
 Cubo::Cubo(GLdouble l) : Entity()
 {
 	mesh = Mesh::generateContCubo(l);
 	mesh2 = Mesh::generateRectangle(l, l);
 }
-//-------------------------------------------------------------------------
 
 void Cubo::draw()
 {
@@ -157,7 +155,7 @@ void Cubo::draw()
 	mesh2->draw();
 	glLineWidth(1);
 }
-//-------------------------------------------------------------------------
+
 void Cubo::render(dmat4 const& modelViewMat){
 	dmat4 aMat = modelViewMat*modelMat;
 	aMat = translate(aMat, dvec3(0, 0, -100.0));
@@ -182,7 +180,6 @@ Dragon::Dragon(GLuint numVert) : Entity()
 {
 	mesh = Mesh::generateDragon(numVert);
 }
-//-------------------------------------------------------------------------
 
 void Dragon::draw()
 {
@@ -191,7 +188,6 @@ void Dragon::draw()
 	mesh->draw();
 	glLineWidth(1);
 }
-//-------------------------------------------------------------------------
 
 void Dragon::render(dmat4 const& modelViewMat){
 	dmat4 aMat = modelViewMat*modelMat;
@@ -208,7 +204,6 @@ Poliespiral::Poliespiral(dvec2 verIni, GLdouble angIni, GLdouble increAng,
 	mesh = Mesh::generatePoliespiral(verIni, angIni, increAng,
 		ladoIni, incrLado, numVert);
 }
-//-------------------------------------------------------------------------
 
 void Poliespiral::draw()
 {
@@ -216,5 +211,12 @@ void Poliespiral::draw()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	mesh->draw();
 	glLineWidth(1);
+}
+
+void Poliespiral::render(dmat4 const& modelViewMat){
+	dmat4 aMat = modelViewMat*modelMat;
+	aMat = scale(aMat, dvec3(10.0, 10.0, 0.0));
+
+	Entity::render(aMat);
 }
 //-------------------------------------------------------------------------

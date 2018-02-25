@@ -105,6 +105,9 @@ public:
 		GLdouble ladoIni, GLdouble incrLado, GLuint numVert);
 	~Poliespiral() { };
 	virtual void draw();
+	virtual void render(glm::dmat4 const& modelViewMat);
 };
+
 //-------------------------------------------------------------------------
+
 #endif //_H_Entities_H_

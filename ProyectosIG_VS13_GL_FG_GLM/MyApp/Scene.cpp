@@ -15,15 +15,15 @@ void Scene::init()
   // objets
   objetos.push_back(new EjesRGB(200.0));
   objetos.push_back(new Triangle(200.0));
-  objetos.push_back(new TriangleRGB(50.0)); 
-  objetos.push_back(new TriPyramid(50.0, 100.0));
+  objetos.push_back(new TriangleRGB(200.0)); 
+  objetos.push_back(new TriPyramid(200.0, 200.0));
   objetos.push_back(new ContCubo(200.0));
 
 
-  objetos.push_back(new Diabolo(100.0, 100.0));
+  objetos.push_back(new Diabolo(100.0, 200.0));
   objetos.push_back(new Cubo(100.0));
   objetos.push_back(new Dragon(3000));
-  objetos.push_back(new Poliespiral({ 0, 0 }, 0, 160, 1, 1, 50));
+  objetos.push_back(new Poliespiral({ 0, 0 }, 0, 89.5, 0.5, 0.5, 100));
 
   findPositions(countElements());
   findNewSize();
@@ -72,6 +72,7 @@ void Scene::findNewSize(){
 	w = newW;
 	h = newH;
 }
+//-------------------------------------------------------------------------
 
 void Scene::findPositions(int numElements){
 	int newW, newH, numCols, numFils;

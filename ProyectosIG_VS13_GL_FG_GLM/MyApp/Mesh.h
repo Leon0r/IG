@@ -35,8 +35,8 @@ protected:
    static void TDragon(double& x, double& y);
    static void T1(double& x, double& y);
    static void T2(double& x, double& y);
+
+   static void movePoliespiral(GLdouble& x, GLdouble& y, GLdouble angulo, GLdouble lado);
 };
-
 //-------------------------------------------------------------------------
-
 #endif //_H_Scene_H_

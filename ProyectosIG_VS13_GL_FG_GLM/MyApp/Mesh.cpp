@@ -54,6 +54,7 @@ Mesh * Mesh::generateAxesRGB(GLdouble l)
   return m; 
 }
 //-------------------------------------------------------------------------
+
 Mesh* Mesh::generateTriangle(GLdouble r)
 {
 	Mesh* m = new Mesh();
@@ -68,12 +69,13 @@ Mesh* Mesh::generateTriangle(GLdouble r)
 
 	m->colors = new dvec4[m->numVertices];
 	m->colors[0] = dvec4(1.0, 0.0, 0.0, 1.0);
-	m->colors[1] = dvec4(1.0, 0.0, 0.0, 1.0);
-	m->colors[2] = dvec4(1.0, 0.0, 0.0, 1.0);
+	m->colors[1] = dvec4(1.0, 1.0, 0.0, 1.0);
+	m->colors[2] = dvec4(1.0, 0.0, 1.0, 1.0);
 
 	return m;
 }
 //-------------------------------------------------------------------------
+
 Mesh* Mesh::generateTriangleRGB(GLdouble r)
 {
 	Mesh* m = new Mesh();
@@ -94,6 +96,7 @@ Mesh* Mesh::generateTriangleRGB(GLdouble r)
 	return m;
 }
 //-------------------------------------------------------------------------
+
 Mesh* Mesh::generateTriPyramid(GLdouble r, GLdouble h)
 {
 	Mesh* m = new Mesh();
@@ -117,6 +120,7 @@ Mesh* Mesh::generateTriPyramid(GLdouble r, GLdouble h)
 	return m;
 }
 //-------------------------------------------------------------------------
+
 Mesh* Mesh::generateContCubo(GLdouble l)
 {
 	Mesh* m = new Mesh();
@@ -143,11 +147,12 @@ Mesh* Mesh::generateContCubo(GLdouble l)
 	m->colors = new dvec4[m->numVertices];
 
 	for (int i = 0; i < m->numVertices; i++){
-		m->colors[i] = dvec4(0.0, 0.0, 0.0, 1.0);
+		m->colors[i] = dvec4(1.0, 0.0, 1.0, 1.0);
 	}
 	return m;
 }
 //-------------------------------------------------------------------------
+
 Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h)
 {
 	Mesh* m = new Mesh();
@@ -164,11 +169,12 @@ Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h)
 	m->colors = new dvec4[m->numVertices];
 
 	for (int i = 0; i < m->numVertices; i++){
-		m->colors[i] = dvec4(0.0, 0.0, 0.0, 1.0);
+		m->colors[i] = dvec4(1.0, 0.0, 1.0, 1.0);
 	}
 	return m;
 }
 //-------------------------------------------------------------------------
+
 Mesh* Mesh::generateDragon(GLuint numVert){
 	Mesh* m = new Mesh();
 	m->type = GL_POINTS;
@@ -190,11 +196,10 @@ Mesh* Mesh::generateDragon(GLuint numVert){
 	m->colors = new dvec4[m->numVertices];
 
 	for (int i = 0; i < m->numVertices; i++){
-		m->colors[i] = dvec4(0.0, 0.0, 0.0, 1.0);
+		m->colors[i] = dvec4(0.67, 0.16, 0.24, 1.0);
 	}
 	return m;
 }
-//-------------------------------------------------------------------------
 
 void Mesh::TDragon(double& x, double& y){
 	double PR1 = 0.787473;
@@ -206,13 +211,19 @@ void Mesh::TDragon(double& x, double& y){
 	else
 		T2(x, y);
 }
+
 void Mesh::T1(double& x, double& y){
-	x = 0.824074 * x + 0.281482 * y - 0.882290;
-	y = - 0.212346 * x + 0.864198 * y - 0.110607;
+	double auxX = x;
+	double auxY = y;
+	x = 0.824074 * auxX + 0.281482 * auxY - 0.882290;
+	y = - 0.212346 * auxX + 0.864198 * auxY - 0.110607;
 }
+
 void Mesh::T2(double& x, double& y){
-	x = 0.088272 * x + 0.520988 * y + 0.785360;
-	y = -0.463889 * x - 0.377778 * y + 8.095795;
+	double auxX = x;
+	double auxY = y;
+	x = 0.088272 * auxX + 0.520988 * auxY + 0.785360;
+	y = -0.463889 * auxX - 0.377778 * auxY + 8.095795;
 }
 //-------------------------------------------------------------------------
 
@@ -221,12 +232,36 @@ Mesh* Mesh::generatePoliespiral(dvec2 verIni, GLdouble angIni, GLdouble increAng
 	Mesh* m = new Mesh();
 	m->type = GL_LINE_STRIP;
 	m->numVertices = numVert;
+	m->vertices = new dvec3[m->numVertices];
+
+	m->vertices[0] = dvec3(0.0, 0.0, 0.0);
+
+	double auxX, auxY, angulo, lado;
+	angulo = angIni;
+	lado = ladoIni;
+
+	for (int i = 1; i < m->numVertices; i++){
+		auxX = m->vertices[i - 1].x;
+		auxY = m->vertices[i - 1].y;
+
+		movePoliespiral(auxX, auxY, angulo, lado);
+
+		m->vertices[i] = dvec3(auxX, auxY, 0.0);
+
+		angulo += increAng;
+		lado += incrLado;
+	}
 
 	m->colors = new dvec4[m->numVertices];
 
 	for (int i = 0; i < m->numVertices; i++){
-		m->colors[i] = dvec4(0.0, 0.0, 0.0, 1.0);
+		m->colors[i] = dvec4(0.37, 0.0, 0.37, 1.0);
 	}
 	return m;
+}
+
+void Mesh::movePoliespiral(GLdouble& x, GLdouble& y, GLdouble angulo, GLdouble lado){
+	x = x + lado*cos(angulo);
+	y = y + lado*sin(angulo);
 }
 //-------------------------------------------------------------------------

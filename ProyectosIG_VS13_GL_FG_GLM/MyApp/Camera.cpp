@@ -60,11 +60,13 @@ void Camera::pitch(GLdouble a)
   viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(1.0, 0, 0));
 }
 //-------------------------------------------------------------------------
+
 void Camera::yaw(GLdouble a)
 {
   viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(0, 1.0, 0));
 }
 //-------------------------------------------------------------------------
+
 void Camera::roll(GLdouble a)
 {
   viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(0, 0, 1.0));
@@ -98,5 +100,3 @@ void Camera::setPM()
   glMatrixMode(GL_MODELVIEW);
 }
 //-------------------------------------------------------------------------
-
-

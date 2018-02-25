@@ -7,8 +7,9 @@
 #include "Camera.h"
 #include "Entities.h"
 
-//-------------------------------------------------------------------------
 using namespace std;
+
+//-------------------------------------------------------------------------
 
 class Scene	
 { 
@@ -17,8 +18,7 @@ public:
 	  ~Scene();
     void init();
 	  void render();
-
-	  
+ 
 protected:
 	  Camera* camera;
 	  vector<Entity*> objetos;
@@ -33,4 +33,3 @@ protected:
 //-------------------------------------------------------------------------
 
 #endif //_H_Scene_H_
-
