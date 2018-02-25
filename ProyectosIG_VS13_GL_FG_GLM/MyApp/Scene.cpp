@@ -13,7 +13,7 @@ void Scene::init()
   // textures  
 
   // objets
-  /*objetos.push_back(new EjesRGB(200.0));
+  objetos.push_back(new EjesRGB(200.0));
   objetos.push_back(new Triangle(200.0));
   objetos.push_back(new TriangleRGB(50.0)); 
   objetos.push_back(new TriPyramid(50.0, 100.0));
@@ -21,9 +21,9 @@ void Scene::init()
 
 
   objetos.push_back(new Diabolo(100.0, 100.0));
-  objetos.push_back(new Cubo(100.0));*/
+  objetos.push_back(new Cubo(100.0));
   objetos.push_back(new Dragon(3000));
- //objetos.push_back(new Poliespiral({ 0, 0 }, 0, 160, 1, 1, 50));
+  objetos.push_back(new Poliespiral({ 0, 0 }, 0, 160, 1, 1, 50));
 
   findPositions(countElements());
   findNewSize();

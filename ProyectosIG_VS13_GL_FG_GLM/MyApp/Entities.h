@@ -95,6 +95,7 @@ public:
 	Dragon(GLuint numVert);
 	~Dragon() { };
 	virtual void draw();
+	virtual void render(glm::dmat4 const& modelViewMat);
 };
 //-------------------------------------------------------------------------
 class Poliespiral : public Entity

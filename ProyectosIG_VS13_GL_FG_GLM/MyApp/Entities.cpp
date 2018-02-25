@@ -193,6 +193,15 @@ void Dragon::draw()
 }
 //-------------------------------------------------------------------------
 
+void Dragon::render(dmat4 const& modelViewMat){
+	dmat4 aMat = modelViewMat*modelMat;
+	aMat = translate(aMat, dvec3(-40.0, -170.0, 0.0));
+	aMat = scale(aMat, dvec3(40.0, 40.0, 0.0));
+	
+	Entity::render(aMat);
+}
+//-------------------------------------------------------------------------
+
 Poliespiral::Poliespiral(dvec2 verIni, GLdouble angIni, GLdouble increAng,
 	GLdouble ladoIni, GLdouble incrLado, GLuint numVert) : Entity()
 {
