@@ -75,7 +75,7 @@ public:
 	~Diabolo() { };
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
-	void incrementaAngulo();
+	void incrementaAngulo(){ angle += 5.0; };
 };
 //-------------------------------------------------------------------------
 class Cubo : public Entity

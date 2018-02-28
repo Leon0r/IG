@@ -18,9 +18,11 @@ public:
 	  ~Scene();
     void init();
 	  void render();
- 
+	  Diabolo* getDiabolo(){ return d; }
 protected:
 	  Camera* camera;
+	  Diabolo* d;
+
 	  vector<Entity*> objetos;
 	  vector<pair<int, int>> pares;
 	  int h, w;

@@ -108,7 +108,7 @@ void key(unsigned char key, int x, int y)
 	  camera.setAZ();
 	  break;
   case 'a':
-	  ;
+	  scene.getDiabolo()->incrementaAngulo();
 	  break;
   default:
     need_redisplay = false;

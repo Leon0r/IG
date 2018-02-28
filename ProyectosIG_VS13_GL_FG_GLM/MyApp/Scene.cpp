@@ -20,7 +20,10 @@ void Scene::init()
   objetos.push_back(new ContCubo(200.0));
 
   objetos.push_back(new Cubo(200.0));
-  objetos.push_back(new Diabolo(100.0, 200.0));  
+
+  d = new Diabolo(100.0, 200.0);
+  objetos.push_back(d);  
+
   objetos.push_back(new Dragon(3000));
   objetos.push_back(new Poliespiral({ 0, 0 }, 0, 89.5, 0.5, 0.5, 100));
 

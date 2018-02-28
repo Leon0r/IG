@@ -116,27 +116,24 @@ void Diabolo::render(dmat4 const& modelViewMat){
 	dmat4 aMat = modelViewMat*modelMat;
 	aMat = translate(aMat, dvec3(0, 0, -200.0));
 	aMat = rotate(aMat, angle, dvec3(0, 0, 1));
+
 	aMat = rotate(aMat, radians(0.0), dvec3(0, 0, 1));
 	Entity::render(aMat);
 	aMat = translate(aMat, dvec3(0, 0, 0.0));
-	aMat = rotate(aMat, angle, dvec3(0, 0, 1));
+
 	aMat = rotate(aMat, radians(60.0), dvec3(0, 0, 1));
 	Entity::render(aMat);
 
 	aMat = rotate(aMat, radians(180.0), dvec3(0, 1, 0));
 
 	aMat = translate(aMat, dvec3(0, 0, -400.0));
-	aMat = rotate(aMat, angle, dvec3(0, 0, 1));
+
 	aMat = rotate(aMat, radians(0.0), dvec3(0, 0, 1));
 	Entity::render(aMat);
 	aMat = translate(aMat, dvec3(0, 0, 0.0));
-	aMat = rotate(aMat, angle, dvec3(0, 0, 1));
+
 	aMat = rotate(aMat, radians(60.0), dvec3(0, 0, 1));
 	Entity::render(aMat);
-}
-
-void Diabolo::incrementaAngulo(){
-	angle += 5.0;
 }
 //-------------------------------------------------------------------------
 
