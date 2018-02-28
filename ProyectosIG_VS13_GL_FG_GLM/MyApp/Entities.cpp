@@ -152,13 +152,18 @@ void Cubo::draw()
 }
 
 void Cubo::render(dmat4 const& modelViewMat){
+	
 	dmat4 aMat = modelViewMat*modelMat;
 	mesh->draw();
 
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glPolygonMode(GL_BACK, GL_LINE);
+
 	aMat = modelViewMat*modelMat;
 
-	aMat = rotate(aMat, radians(90.0), dvec3(1, 0, 0));
-	aMat = translate(aMat, dvec3(0, 0, 100.0));
+	aMat = rotate(aMat, radians(-90.0), dvec3(1, 0, 0));
+	aMat = translate(aMat, dvec3(0, 0, -100.0));
+	aMat = rotate(aMat, radians(180.0), dvec3(0, 1, 0));
 
 	glLoadMatrixd(value_ptr(aMat));
 	mesh2->draw();
@@ -168,6 +173,7 @@ void Cubo::render(dmat4 const& modelViewMat){
 	aMat = rotate(aMat, radians(90.0), dvec3(1, 0, 0));
 	aMat = rotate(aMat, radians(45.0), dvec3(0, -1, 0));
 	aMat = translate(aMat, dvec3(-100.0, 0.0, -140.0));
+	aMat = rotate(aMat, radians(180.0), dvec3(1, 0, 0));
 	glLoadMatrixd(value_ptr(aMat));
 	mesh2->draw();
 }

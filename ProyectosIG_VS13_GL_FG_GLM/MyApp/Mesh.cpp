@@ -169,7 +169,7 @@ Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h)
 	m->colors = new dvec4[m->numVertices];
 
 	for (int i = 0; i < m->numVertices; i++){
-		m->colors[i] = dvec4(0.0, 0.0, 0.0, 1.0);
+		m->colors[i] = dvec4(1.0, 0.0, 1.0, 1.0);
 	}
 	return m;
 }
