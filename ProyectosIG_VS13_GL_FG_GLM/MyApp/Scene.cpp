@@ -10,6 +10,7 @@ void Scene::init()
   camera->setAZ();
     
   // lights
+
   // textures  
 
   // objets

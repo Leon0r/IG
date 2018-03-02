@@ -14,7 +14,9 @@ bool Texture::load(const std::string & BMP_Name, GLubyte alpha){
 	glBindTexture(GL_TEXTURE_2D, id);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA,
 		GL_UNSIGNED_BYTE, pixMap.data());
-	// transferir a openGL	return true;
+	// transferir a openGL
+
+	return true;
 }
 
 void Texture::bind(){
