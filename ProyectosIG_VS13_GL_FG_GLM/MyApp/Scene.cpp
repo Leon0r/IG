@@ -12,11 +12,15 @@ void Scene::init()
   // lights
 
   // textures  
+  glEnable(GL_TEXTURE_2D);
 
   // objets
   objetos.push_back(new EjesRGB(200.0));
   objetos.push_back(new Triangle(200.0));
-  objetos.push_back(new TriangleRGB(200.0)); 
+  
+  objetos.push_back(new RectangleTex(50, 50, 1));
+
+  //objetos.push_back(new TriangleRGB(200.0)); 
   objetos.push_back(new TriPyramid(200.0, 200.0));
   objetos.push_back(new ContCubo(200.0));
 

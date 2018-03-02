@@ -265,3 +265,41 @@ void Mesh::movePoliespiral(GLdouble& x, GLdouble& y, GLdouble angulo, GLdouble l
 	y = y + lado*sin(angulo);
 }
 //-------------------------------------------------------------------------
+
+Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, int corTex)
+{
+	Mesh* m = new Mesh();
+	m->type = GL_TRIANGLE_STRIP;
+	m->numVertices = 4;
+
+	m->vertices = new dvec3[m->numVertices];
+	m->vertices[0] = dvec3(-w / 2, h / 2, 0);
+	m->vertices[1] = dvec3(-w / 2, -h / 2, 0);
+
+	m->vertices[2] = dvec3(w / 2, h / 2, 0);
+	m->vertices[3] = dvec3(w / 2, -h / 2, 0);
+
+	m->colors = new dvec4[m->numVertices];
+
+	for (int i = 0; i < m->numVertices; i++){
+		m->colors[i] = dvec4(1.0, 0.0, 1.0, 1.0);
+	}
+	return m;
+}
+//-------------------------------------------------------------------------
+
+Mesh* Mesh::generateTriPyramidTex(GLdouble r, GLdouble h, int corTex)
+{
+	Mesh* m = new Mesh();
+
+	return m;
+}
+//-------------------------------------------------------------------------
+
+Mesh* Mesh::generateContCuboTex(GLdouble l, int corTex)
+{
+	Mesh* m = new Mesh();
+
+	return m;
+}
+//-------------------------------------------------------------------------

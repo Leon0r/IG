@@ -5,22 +5,24 @@
 #include <GL/freeglut.h>
 #include <glm.hpp>
 #include "Mesh.h"
+#include "Textures.h"
 
 //-------------------------------------------------------------------------
 
-class Entity 
+class Entity
 {
 public:
-  Entity() : modelMat(1.0) { };
-  virtual ~Entity() { delete mesh; };
+	Entity() : modelMat(1.0) { };
+	virtual ~Entity() { delete mesh; };
 
-  virtual void render(glm::dmat4 const& modelViewMat);
-  
+	virtual void render(glm::dmat4 const& modelViewMat);
+
 protected:
-  Mesh* mesh = nullptr;
-  glm::dmat4 modelMat;
-  virtual void draw();
-  virtual void setMvM(glm::dmat4 const& modelViewMat);
+	Texture texture;
+	Mesh* mesh = nullptr;
+	glm::dmat4 modelMat;
+	virtual void draw();
+	virtual void setMvM(glm::dmat4 const& modelViewMat);
 };
 
 //-------------------------------------------------------------------------
@@ -109,5 +111,14 @@ public:
 };
 
 //-------------------------------------------------------------------------
+class RectangleTex : public Entity
+{
+public:
+	RectangleTex(GLdouble w, GLdouble h, int corTex);
+	~RectangleTex() { };
+	virtual void draw();
+	virtual void render(glm::dmat4 const& modelViewMat);
+};
 
+//-------------------------------------------------------------------------
 #endif //_H_Entities_H_

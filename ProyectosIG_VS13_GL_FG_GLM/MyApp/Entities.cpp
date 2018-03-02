@@ -223,3 +223,23 @@ void Poliespiral::render(dmat4 const& modelViewMat){
 	Entity::render(aMat);
 }
 //-------------------------------------------------------------------------
+
+RectangleTex::RectangleTex(GLdouble w, GLdouble h, int corTex) : Entity()
+{
+	mesh = Mesh::generateRectangleTex(w, h, corTex); // con coord. de textura
+	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
+}
+
+void RectangleTex::draw()
+{
+	glEnable(GL_TEXTURE_2D);
+
+	glDisable(GL_TEXTURE_2D);
+}
+
+void RectangleTex::render(dmat4 const& modelViewMat)
+{
+	glEnable(GL_TEXTURE_2D);
+
+	glDisable(GL_TEXTURE_2D);
+}
