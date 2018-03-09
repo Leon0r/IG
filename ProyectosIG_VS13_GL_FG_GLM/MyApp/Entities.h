@@ -115,10 +115,23 @@ class RectangleTex : public Entity
 {
 public:
 	RectangleTex(GLdouble w, GLdouble h, int corTex);
+	RectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex);
 	~RectangleTex() { };
+	virtual void draw();
+	//virtual void render(glm::dmat4 const& modelViewMat);
+};
+
+//-------------------------------------------------------------------------
+
+class CubeTex : public Entity
+{
+public:
+	Mesh* mesh2 = nullptr;
+	
+	CubeTex(GLdouble l, int corTex);
+	~CubeTex() { };
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
 };
 
-//-------------------------------------------------------------------------
 #endif //_H_Entities_H_

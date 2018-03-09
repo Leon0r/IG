@@ -20,7 +20,11 @@ void Mesh::draw()
       glEnableClientState(GL_COLOR_ARRAY);
       glColorPointer(4, GL_DOUBLE, 0, colors);   // number of coordinates per color, type of each coordinate 
     }
-	
+	if (texture != nullptr){
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glTexCoordPointer(2, GL_DOUBLE, 0, texture);
+	}
+
     glDrawArrays(type, 0, numVertices);   // kind of primitives, first, count
 
 	  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -268,23 +272,25 @@ void Mesh::movePoliespiral(GLdouble& x, GLdouble& y, GLdouble angulo, GLdouble l
 
 Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, int corTex)
 {
-	Mesh* m = new Mesh();
-	m->type = GL_TRIANGLE_STRIP;
-	m->numVertices = 4;
+	Mesh* m = generateRectangle(w, h);
+	m->texture = new dvec2[m->numVertices];
+	m->texture[0] = dvec2(0,1);
+	m->texture[1] = dvec2(0,0);
 
-	m->vertices = new dvec3[m->numVertices];
-	m->vertices[0] = dvec3(-w / 2, h / 2, 0);
-	m->vertices[1] = dvec3(-w / 2, -h / 2, 0);
-
-	m->vertices[2] = dvec3(w / 2, h / 2, 0);
-	m->vertices[3] = dvec3(w / 2, -h / 2, 0);
-
-	m->colors = new dvec4[m->numVertices];
-
-	for (int i = 0; i < m->numVertices; i++){
-		m->colors[i] = dvec4(1.0, 0.0, 1.0, 1.0);
-	}
+	m->texture[2] = dvec2(1,1);
+	m->texture[3] = dvec2(1,0);
 	return m;
+}
+//-------------------------------------------------------------------------
+ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex){
+	 Mesh* m = generateRectangle(w, h);
+	 m->texture = new dvec2[m->numVertices];
+	 m->texture[0] = dvec2(0, numFil);
+	 m->texture[1] = dvec2(0, 0);
+
+	 m->texture[2] = dvec2(numCol, numFil);
+	 m->texture[3] = dvec2(numCol, 0);
+	 return m;
 }
 //-------------------------------------------------------------------------
 
@@ -298,7 +304,23 @@ Mesh* Mesh::generateTriPyramidTex(GLdouble r, GLdouble h, int corTex)
 
 Mesh* Mesh::generateContCuboTex(GLdouble l, int corTex)
 {
-	Mesh* m = new Mesh();
+	Mesh* m = generateContCubo(l);
+
+	m->texture = new dvec2[m->numVertices];
+	m->texture[0] = dvec2(0, 1);
+	m->texture[1] = dvec2(0, 0);
+
+	m->texture[2] = dvec2(1, 1);
+	m->texture[3] = dvec2(1, 0);
+
+	m->texture[4] = dvec2(2, 1);
+	m->texture[5] = dvec2(2, 0);
+
+	m->texture[6] = dvec2(3, 1);
+	m->texture[7] = dvec2(3, 0);
+
+	m->texture[8] = dvec2(4, 1);
+	m->texture[9] = dvec2(4, 0);
 
 	return m;
 }

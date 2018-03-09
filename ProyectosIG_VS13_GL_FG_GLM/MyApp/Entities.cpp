@@ -230,16 +230,55 @@ RectangleTex::RectangleTex(GLdouble w, GLdouble h, int corTex) : Entity()
 	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
 }
 
-void RectangleTex::draw()
-{
-	glEnable(GL_TEXTURE_2D);
-
-	glDisable(GL_TEXTURE_2D);
+RectangleTex::RectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex){
+	mesh = Mesh::generateRectangleTex(w, h, numCol, numFil,  corTex); // con coord. de textura
+	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
 }
 
-void RectangleTex::render(dmat4 const& modelViewMat)
+void RectangleTex::draw()
 {
-	glEnable(GL_TEXTURE_2D);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	texture.bind();
+	mesh->draw();
+	texture.unbind();
+	
+}
+//-------------------------------------------------------------------------
 
-	glDisable(GL_TEXTURE_2D);
+CubeTex::CubeTex(GLdouble l, int corTex){
+	mesh = Mesh::generateContCuboTex(l, corTex); // con coord. de textura
+	mesh2 = Mesh::generateRectangleTex(l, l, corTex);
+	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
+}
+
+void CubeTex::draw()
+{
+}
+
+void CubeTex::render(dmat4 const& modelViewMat){
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	texture.bind();
+	
+	dmat4 aMat = modelViewMat*modelMat;
+	mesh->draw();
+
+	aMat = modelViewMat*modelMat;
+
+	aMat = rotate(aMat, radians(-90.0), dvec3(1, 0, 0));
+	aMat = translate(aMat, dvec3(0, 0, -100.0));
+	aMat = rotate(aMat, radians(180.0), dvec3(0, 1, 0));
+
+	glLoadMatrixd(value_ptr(aMat));
+	mesh2->draw();
+
+	aMat = modelViewMat*modelMat;
+
+	aMat = rotate(aMat, radians(90.0), dvec3(1, 0, 0));
+	aMat = rotate(aMat, radians(45.0), dvec3(0, -1, 0));
+	aMat = translate(aMat, dvec3(-100.0, 0.0, -140.0));
+	aMat = rotate(aMat, radians(180.0), dvec3(1, 0, 0));
+	glLoadMatrixd(value_ptr(aMat));
+	mesh2->draw();
+
+	texture.unbind();
 }

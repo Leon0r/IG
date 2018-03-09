@@ -21,6 +21,7 @@ public:
 	  GLdouble ladoIni, GLdouble incrLado, GLuint numVert);
 
   static Mesh* generateRectangleTex(GLdouble w, GLdouble h, int corTex);
+  static Mesh* generateRectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex);
   static Mesh* generateTriPyramidTex(GLdouble r, GLdouble h, int corTex);
   static Mesh* generateContCuboTex(GLdouble l, int corTex);
 
@@ -35,6 +36,7 @@ protected:
    GLuint type = GL_POINTS;
    glm::dvec3* vertices = nullptr;
    glm::dvec4* colors = nullptr;
+   glm::dvec2* texture = nullptr;
 
    static void TDragon(double& x, double& y);
    static void T1(double& x, double& y);
