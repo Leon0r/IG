@@ -224,14 +224,14 @@ void Poliespiral::render(dmat4 const& modelViewMat){
 }
 //-------------------------------------------------------------------------
 
-RectangleTex::RectangleTex(GLdouble w, GLdouble h, int corTex) : Entity()
+RectangleTex::RectangleTex(GLdouble w, GLdouble h) : Entity()
 {
-	mesh = Mesh::generateRectangleTex(w, h, corTex); // con coord. de textura
+	mesh = Mesh::generateRectangleTex(w, h); /// con coord. de textura
 	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
 }
 
-RectangleTex::RectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex){
-	mesh = Mesh::generateRectangleTex(w, h, numCol, numFil,  corTex); // con coord. de textura
+RectangleTex::RectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil){
+	mesh = Mesh::generateRectangleTex(w, h, numCol, numFil); /// con coord. de textura
 	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
 }
 
@@ -245,9 +245,9 @@ void RectangleTex::draw()
 }
 //-------------------------------------------------------------------------
 
-CubeTex::CubeTex(GLdouble l, int corTex){
-	mesh = Mesh::generateContCuboTex(l, corTex); // con coord. de textura
-	mesh2 = Mesh::generateRectangleTex(l, l, corTex);
+CubeTex::CubeTex(GLdouble l){
+	mesh = Mesh::generateContCuboTex(l); /// con coord. de textura
+	mesh2 = Mesh::generateRectangleTex(l, l);
 	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
 }
 

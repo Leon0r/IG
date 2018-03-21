@@ -270,8 +270,9 @@ void Mesh::movePoliespiral(GLdouble& x, GLdouble& y, GLdouble angulo, GLdouble l
 }
 //-------------------------------------------------------------------------
 
-Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, int corTex)
+Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h)
 {
+	// Textura expandida
 	Mesh* m = generateRectangle(w, h);
 	m->texture = new dvec2[m->numVertices];
 	m->texture[0] = dvec2(0,1);
@@ -282,7 +283,10 @@ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, int corTex)
 	return m;
 }
 //-------------------------------------------------------------------------
- Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex){
+
+ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil)
+ {
+	 // Textura por tiles
 	 Mesh* m = generateRectangle(w, h);
 	 m->texture = new dvec2[m->numVertices];
 	 m->texture[0] = dvec2(0, numFil);
@@ -294,7 +298,7 @@ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, int corTex)
 }
 //-------------------------------------------------------------------------
 
-Mesh* Mesh::generateTriPyramidTex(GLdouble r, GLdouble h, int corTex)
+Mesh* Mesh::generateTriPyramidTex(GLdouble r, GLdouble h)
 {
 	Mesh* m = new Mesh();
 
@@ -302,7 +306,7 @@ Mesh* Mesh::generateTriPyramidTex(GLdouble r, GLdouble h, int corTex)
 }
 //-------------------------------------------------------------------------
 
-Mesh* Mesh::generateContCuboTex(GLdouble l, int corTex)
+Mesh* Mesh::generateContCuboTex(GLdouble l)
 {
 	Mesh* m = generateContCubo(l);
 
