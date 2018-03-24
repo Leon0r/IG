@@ -108,11 +108,11 @@ Mesh* Mesh::generateTriPyramid(GLdouble r, GLdouble h)
 	m->numVertices = 5;
 
 	m->vertices = new dvec3[m->numVertices];
-	m->vertices[0] = dvec3(0.0, r, 0.0);
-	m->vertices[1] = dvec3(r*cos(radians(30.0)), r*sin(radians(330.0)), 0.0);
-	m->vertices[2] = dvec3(r*cos(radians(210.0)), r*sin(radians(330.0)), 0.0);
-	m->vertices[3] = dvec3(0.0, r*sin(radians(0.0)), h);
-	m->vertices[4] = dvec3(r*cos(radians(30.0)), r*sin(radians(330.0)), 0.0);
+	m->vertices[0] = dvec3(0.0, r*sin(radians(0.0)), h);
+	m->vertices[1] = dvec3(0.0, r, 0.0);
+	m->vertices[2] = dvec3(r*cos(radians(30.0)), r*sin(radians(330.0)), 0.0);
+	m->vertices[3] = dvec3(r*cos(radians(210.0)), r*sin(radians(330.0)), 0.0);
+	m->vertices[4] = dvec3(0.0, r, 0.0);
 
 	m->colors = new dvec4[m->numVertices];
 	m->colors[0] = dvec4(0.0, 1.0, 1.0, 1.0);
@@ -270,10 +270,11 @@ void Mesh::movePoliespiral(GLdouble& x, GLdouble& y, GLdouble angulo, GLdouble l
 }
 //-------------------------------------------------------------------------
 
-Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h)
+Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, int corTex)
 {
-	// Textura expandida
+	// Textura por ampliacion
 	Mesh* m = generateRectangle(w, h);
+
 	m->texture = new dvec2[m->numVertices];
 	m->texture[0] = dvec2(0,1);
 	m->texture[1] = dvec2(0,0);
@@ -283,11 +284,11 @@ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h)
 	return m;
 }
 //-------------------------------------------------------------------------
-
- Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil)
+ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex)
  {
 	 // Textura por tiles
 	 Mesh* m = generateRectangle(w, h);
+
 	 m->texture = new dvec2[m->numVertices];
 	 m->texture[0] = dvec2(0, numFil);
 	 m->texture[1] = dvec2(0, 0);
@@ -298,15 +299,22 @@ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h)
 }
 //-------------------------------------------------------------------------
 
-Mesh* Mesh::generateTriPyramidTex(GLdouble r, GLdouble h)
-{
-	Mesh* m = new Mesh();
+ Mesh* Mesh::generateTriPyramidTex(GLdouble r, GLdouble h, int corTex)
+ {
+	 Mesh* m = generateTriPyramid(r, h);
 
-	return m;
-}
+	 m->texture = new dvec2[m->numVertices];
+	 m->texture[0] = dvec2(0.0, 0.0);
+	 m->texture[1] = dvec2(0.0, 0.5);
+	 m->texture[2] = dvec2(0.5, 1.0);
+	 m->texture[3] = dvec2(1.0, 0.5);
+	 m->texture[4] = dvec2(1.0, 1.0);
+
+	 return m;
+ }
 //-------------------------------------------------------------------------
 
-Mesh* Mesh::generateContCuboTex(GLdouble l)
+Mesh* Mesh::generateContCuboTex(GLdouble l, int corTex)
 {
 	Mesh* m = generateContCubo(l);
 

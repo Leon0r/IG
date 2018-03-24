@@ -20,10 +20,10 @@ public:
   static Mesh* generatePoliespiral(glm::dvec2 verIni, GLdouble angIni, GLdouble increAng,
 	  GLdouble ladoIni, GLdouble incrLado, GLuint numVert);
 
-  static Mesh* generateRectangleTex(GLdouble w, GLdouble h);
-  static Mesh* generateRectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil);
-  static Mesh* generateTriPyramidTex(GLdouble r, GLdouble h);
-  static Mesh* generateContCuboTex(GLdouble l);
+  static Mesh* generateRectangleTex(GLdouble w, GLdouble h, int corTex);
+  static Mesh* generateRectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex);
+  static Mesh* generateTriPyramidTex(GLdouble r, GLdouble h, int corTex);
+  static Mesh* generateContCuboTex(GLdouble l, int corTex);
 
   Mesh(void) { };
   ~Mesh(void);
