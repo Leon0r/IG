@@ -18,7 +18,8 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat);
 
 protected:
-	Texture texture;
+	Texture texture,
+			texture2;
 	Mesh* mesh = nullptr;
 	glm::dmat4 modelMat;
 	virtual void draw();
@@ -129,6 +130,7 @@ public:
 	CubeTex(GLdouble l, int corTex);
 	~CubeTex() { };
 	virtual void draw();
+	virtual void drawTop();
 	virtual void render(glm::dmat4 const& modelViewMat);
 };
 

@@ -4,8 +4,7 @@ using namespace glm;
 
 //-------------------------------------------------------------------------
 
-Mesh ::~Mesh(void) 
-{
+Mesh ::~Mesh(void) {
   delete[] vertices;
   delete[] colors;
 }

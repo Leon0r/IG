@@ -248,50 +248,63 @@ CubeTex::CubeTex(GLdouble l, int corTex){
 	mesh = Mesh::generateContCuboTex(l, corTex); // con coord. de textura
 	mesh2 = Mesh::generateRectangleTex(l, l, corTex);
 	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
+	texture2.load("..\\Bmps\\container.bmp");
 }
 
 void CubeTex::draw()
 {
+	glCullFace(GL_FRONT);
+	texture.bind();
+	mesh->draw();
+	texture.unbind();
+
+	glCullFace(GL_BACK);
+	texture2.bind();
+	mesh->draw();
+	texture2.unbind();
 }
+
+void CubeTex::drawTop()
+{
+	glCullFace(GL_FRONT);
+	texture.bind();
+	mesh2->draw();
+	texture.unbind();
+
+	glCullFace(GL_BACK);
+	texture2.bind();
+	mesh2->draw();
+	texture2.unbind();
+}
+
 
 void CubeTex::render(dmat4 const& modelViewMat)
 {
-	glPolygonMode(GL_FRONT, GL_FILL);
-	texture.bind();
+	glEnable(GL_CULL_FACE);
 	
 	dmat4 aMat = modelViewMat*modelMat;
-	mesh->draw();
+	draw();
 
 	aMat = modelViewMat*modelMat;
 
 	aMat = rotate(aMat, radians(-90.0), dvec3(1, 0, 0));
 	aMat = translate(aMat, dvec3(0, 0, -100.0));
-	aMat = rotate(aMat, radians(180.0), dvec3(0, 1, 0));
 
 	glLoadMatrixd(value_ptr(aMat));
-	mesh2->draw();
+
+	drawTop();
 
 	aMat = modelViewMat*modelMat;
 
 	aMat = rotate(aMat, radians(90.0), dvec3(1, 0, 0));
 	aMat = rotate(aMat, radians(45.0), dvec3(0, -1, 0));
 	aMat = translate(aMat, dvec3(-100.0, 0.0, -140.0));
-	aMat = rotate(aMat, radians(180.0), dvec3(1, 0, 0));
 	glLoadMatrixd(value_ptr(aMat));
-	mesh2->draw();
 
-	 // cambio de textura
-	texture.load("..\\Bmps\\container.bmp"); // cargamos la imagen
-	glPolygonMode(GL_FRONT, GL_FILL);
-	texture.bind();
+	drawTop();
 
-	aMat = modelViewMat*modelMat;
-	
-	aMat = rotate(aMat, radians(90.0), dvec3(1, 0, 0));
-	aMat = translate(aMat, dvec3(0, 0, 100.0));
-	aMat = rotate(aMat, radians(180.0), dvec3(0, -1, 0));
-
-	texture.unbind();
+	texture2.unbind();
+	glDisable(GL_CULL_FACE);
 }
 
 //-------------------------------------------------------------------------
