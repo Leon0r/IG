@@ -100,16 +100,16 @@ void ContCubo::draw()
 
 Diabolo::Diabolo(GLdouble r, GLdouble h) : Entity()
 {
-	mesh = Mesh::generateTriPyramid(r, h);
+	mesh = Mesh::generateTriPyramidTex(r, h, 0);
+	texture.load("..\\Bmps\\emopng.bmp"); // cargamos la imagen
 }
 
 void Diabolo::draw()
 {
-	glLineWidth(2);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	texture.bind();
 	mesh->draw();
-	glLineWidth(1);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	texture.unbind();
 }
 
 void Diabolo::render(dmat4 const& modelViewMat){
@@ -254,8 +254,9 @@ void CubeTex::draw()
 {
 }
 
-void CubeTex::render(dmat4 const& modelViewMat){
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+void CubeTex::render(dmat4 const& modelViewMat)
+{
+	glPolygonMode(GL_FRONT, GL_FILL);
 	texture.bind();
 	
 	dmat4 aMat = modelViewMat*modelMat;
@@ -278,6 +279,17 @@ void CubeTex::render(dmat4 const& modelViewMat){
 	aMat = rotate(aMat, radians(180.0), dvec3(1, 0, 0));
 	glLoadMatrixd(value_ptr(aMat));
 	mesh2->draw();
+
+	 // cambio de textura
+	texture.load("..\\Bmps\\container.bmp"); // cargamos la imagen
+	glPolygonMode(GL_FRONT, GL_FILL);
+	texture.bind();
+
+	aMat = modelViewMat*modelMat;
+	
+	aMat = rotate(aMat, radians(90.0), dvec3(1, 0, 0));
+	aMat = translate(aMat, dvec3(0, 0, 100.0));
+	aMat = rotate(aMat, radians(180.0), dvec3(0, -1, 0));
 
 	texture.unbind();
 }
