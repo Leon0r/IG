@@ -34,6 +34,8 @@ void Camera::setAZ()
 	eye = dvec3(0, 0, 500);
 	look = dvec3(0, 0, 0);
 	up = dvec3(0, 1, 0);
+	front = -normalize(eye - look);
+	right = normalize(cross(up, -front));
 	viewMat = lookAt(eye, look, up);
 	setVM();
 }
@@ -44,6 +46,8 @@ void Camera::set3D()
 	eye = dvec3(500, 500, 500);
 	look = dvec3(0, 10, 0);
 	up = dvec3(0, 1, 0);
+	front = -normalize(eye - look);
+	right = normalize(cross(up, -front));
 	viewMat = lookAt(eye, look, up);
 	setVM();
 }
@@ -53,7 +57,8 @@ void Camera::set3D()
 // Desplaza la camara sin cambiar la direccion de vista: Left/ Right
 void Camera::moveLR(GLdouble cs)
 {
-
+	eye = eye + (right * cs);
+	viewMat = lookAt(eye, eye + front, up);
 }
 
 // Desplaza la camara sin cambiar la direccion de vista: Forward / Backward
@@ -66,7 +71,8 @@ void Camera::moveFB(GLdouble cs)
 // Desplaza la camara sin cambiar la direccion de vista: Up / down
 void Camera::moveUD(GLdouble cs)
 {
-
+	eye = eye + (up * cs);
+	viewMat = lookAt(eye, eye + front, up);
 }
 
 // Rota la direccion de vista de la camara sin modificar su posicion 

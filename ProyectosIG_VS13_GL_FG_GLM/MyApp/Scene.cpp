@@ -17,7 +17,7 @@ void Scene::init()
 
   // OBJECTS
 
-  //objetos.push_back(new EjesRGB(200.0));
+  objetos.push_back(new EjesRGB(200.0));
   //objetos.push_back(new Triangle(200.0));
   
   // objetos.push_back(new RectangleTex(300, 300, 3, 2, 0));

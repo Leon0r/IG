@@ -101,7 +101,7 @@ void ContCubo::draw()
 Diabolo::Diabolo(GLdouble r, GLdouble h) : Entity()
 {
 	mesh = Mesh::generateTriPyramidTex(r, h, 0);
-	texture.load("..\\Bmps\\emopng.bmp"); // cargamos la imagen
+	texture.load("..\\Bmps\\floris.bmp"); // cargamos la imagen
 
 	modelMat = translate(modelMat, dvec3(+200.0, r + 1.0 , 0.0));
 }
@@ -255,8 +255,8 @@ CubeTex::CubeTex(GLdouble l, int corTex){
 	mesh = Mesh::generateContCuboTex(l, corTex);
 	mesh2 = Mesh::generateRectangleTex(l, l, corTex);
 	// Cargamos las imagenes
-	texture.load("..\\Bmps\\Zelda.bmp");
-	texture2.load("..\\Bmps\\container.bmp");
+	texture.load("..\\Bmps\\container.bmp");
+	texture2.load("..\\Bmps\\chuches.bmp");
 
 	modelMat = translate(modelMat, dvec3(-200.0, (l / 2) + 1.0, 0.0)); // Situa el cubo sobre "el suelo"
 }
@@ -336,7 +336,7 @@ void TriPyramidTex::draw()
 
 Suelo::Suelo(GLdouble w, GLdouble h, GLint repCols, GLint repFils, int corTex) : Entity() {
 	mesh = Mesh::generateRectangleTex(w, h, repCols, repFils, corTex); // con coord. de textura
-	texture.load("..\\Bmps\\picos.bmp"); // cargamos la imagen
+	texture.load("..\\Bmps\\baldosaC.bmp"); // cargamos la imagen
 
 	modelMat = rotate(modelMat, radians(90.0), dvec3(1, 0, 0)); // Define la matriz de modo que sea horizontal
 }

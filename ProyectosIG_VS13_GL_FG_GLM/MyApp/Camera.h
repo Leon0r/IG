@@ -65,8 +65,8 @@ protected:
 	glm::dvec3 look = { 0.0, 0.0, 0.0 };
 	glm::dvec3 up = { 0.0, 1.0, 0.0 };
 
-	glm::dvec3 front = { 0.0, 0.0, 0.0 }; // -n
-	glm::dvec3 right = { 0.0, 0.0, 0.0 }; // -u
+	glm::dvec3 front = { 0.0,0.0,0.0 };
+	glm::dvec3 right = { 0.0,0.0,0.0 };
 
 	glm::dmat4 viewMat;  // Inverse
 

@@ -22,22 +22,21 @@ bool Texture::load(const std::string & BMP_Name, GLubyte alpha){
 }
 
 // Carga en la imagen de la textura la imagen del Color Buffer
-bool Texture::loadColorBuffer(GLsizei width, GLsizei height)
+void Texture::loadColorBuffer(GLsizei width, GLsizei height)
 {
-	int w = glutGet(GLUT_WINDOW_WIDTH);
-	int h = glutGet(GLUT_WINDOW_HEIGHT);
-	// glCopyTexImage2D(GL_TEXTURE_2D, level, internalFormat, xl, yb, w, h, border); // En coordenadas de pantalla (como el puerto de vista)
 	glReadBuffer(GL_FRONT);
-
-	return true;
+	glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 
+	  0, 0, width, height, 0); // En coordenadas de pantalla (como el puerto de vista)
+	glReadBuffer(GL_FRONT);
 }
 
 // Utiliza una variable PixMap32RGBA para crear un buffer del tamano de la textura
-bool Texture::save(const std::string & BMP_Name)
+void Texture::save(const std::string & BMP_Name)
 {
 	PixMap32RGBA textures;
-
-	return true;
+	textures.create_pixmap(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+	glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, textures.data());
+	textures.save_bmp24BGR(BMP_Name);
 }
 
 void Texture::bind(){

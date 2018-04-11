@@ -22,6 +22,9 @@ Camera camera(&viewPort);
 // Scene entities
 Scene scene(&camera);   
 
+// Textura
+Texture texture;
+
 //----------- Callbacks ----------------------------------------------------
 
 void display();
@@ -111,18 +114,26 @@ void key(unsigned char key, int x, int y)
 	  scene.getDiabolo()->incrementaAngulo();
 	  break;
   case 'f': // Guarda en un archivo la imagen del renderizado
+	  texture.loadColorBuffer(viewPort.getW(), viewPort.getH());
+	  texture.save("renderizado.bmp");
 	  break;
   case 'w':
-	  camera.moveUD(-1);
+	  camera.moveUD(10);
 	  break;
   case 'a':
-	  camera.moveUD(-1);
+	  camera.moveLR(-10);
 	  break;
   case 's':
-	  camera.moveUD(1);
+	  camera.moveUD(-10);
 	  break;
   case 'd':
-	  camera.moveUD(1);
+	  camera.moveLR(10);
+	  break;
+  case 'q':
+	  camera.moveFB(-10);
+	  break;
+  case 'e':
+	  camera.moveFB(10);
 	  break;
   default:
     need_redisplay = false;

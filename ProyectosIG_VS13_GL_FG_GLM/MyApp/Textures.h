@@ -12,9 +12,9 @@ public:
 	bool load(const std::string & BMP_Name, GLubyte alpha = 255);
 	
 	// Carga en la imagen de la textura la imagen del Color Buffer
-	bool loadColorBuffer(GLsizei width, GLsizei height);
+	void loadColorBuffer(GLsizei width, GLsizei height);
 	// Utiliza una variable PixMap32RGBA para crear un buffer del tamano de la textura
-	bool save(const std::string & BMP_Name);
+	void save(const std::string & BMP_Name);
 
 	// Cargar y transferir a openGL
 	void bind();
