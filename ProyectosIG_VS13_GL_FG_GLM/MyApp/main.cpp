@@ -25,12 +25,17 @@ Scene scene(&camera);
 // Textura
 Texture texture;
 
+// Coordenadas
+glm::dvec2 mCoord;
+
 //----------- Callbacks ----------------------------------------------------
 
 void display();
 void resize(int newWidth, int newHeight);
 void key(unsigned char key, int x, int y);
 void specialKey(int key, int x, int y);
+void mouse(int button, int state, int x, int y);
+void motion(int x, int y);
 
 //-------------------------------------------------------------------------
 
@@ -56,6 +61,8 @@ int main(int argc, char *argv[])
   glutKeyboardFunc(key);
   glutSpecialFunc(specialKey);
   glutDisplayFunc(display);
+  glutMouseFunc(mouse);
+  glutMotionFunc(motion);
  
   cout << glGetString(GL_VERSION) << '\n';
   cout << glGetString(GL_VENDOR) << '\n';
@@ -135,6 +142,9 @@ void key(unsigned char key, int x, int y)
   case 'e':
 	  camera.moveFB(10);
 	  break;
+  case 'p':
+	  camera.setPrj();
+	  break;
   default:
     need_redisplay = false;
     break;
@@ -170,4 +180,18 @@ void specialKey(int key, int x, int y)
   if (need_redisplay)
     glutPostRedisplay();
 }
+
+// Captura en mCord las coordenadas del raton invirtiendo el eje Y
+void mouse(int button, int state, int x, int y)
+{
+
+}
+
+// Captura las coordenadas del raton y obtiene el desplazamiento con respecto a las anteriores corrdenadas
+// rota la direccion de vista de la camara en funcion del desplazamiento
+void motion(int x, int y)
+{
+
+}
+
 //-------------------------------------------------------------------------
