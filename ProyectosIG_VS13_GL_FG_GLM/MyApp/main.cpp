@@ -41,12 +41,12 @@ int main(int argc, char *argv[])
   glutInitContextVersion(3, 3);
   glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);   
   glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS); 
-  glutInitWindowSize(800, 600);   // window size
-  //glutInitWindowPosition (140, 140);
+  glutInitWindowSize(800, 600); // Window size
+  // glutInitWindowPosition (140, 140);
 
-  glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);   // | GLUT_STENCIL  
+  glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH); // | GLUT_STENCIL  
   
-  int win = glutCreateWindow( "Freeglut-project" );  // window's identifier
+  int win = glutCreateWindow( "Freeglut-project" ); // Window's identifier
   
   // Callback registration
   glutReshapeFunc(resize);
@@ -57,18 +57,18 @@ int main(int argc, char *argv[])
   cout << glGetString(GL_VERSION) << '\n';
   cout << glGetString(GL_VENDOR) << '\n';
  
-  scene.init();    // after creating the context
+  scene.init(); // After creating the context
    
   glutMainLoop(); 
     
   //cin.sync();   cin.get();
-  glutDestroyWindow(win);  // Destroy the context 
+  glutDestroyWindow(win); // Destroy the context 
 
   return 0;
 }
 //-------------------------------------------------------------------------
 
-void display()   // double buffer
+void display() // Double buffer
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
   
@@ -83,7 +83,7 @@ void resize(int newWidth, int newHeight)
   // Resize Viewport 
   viewPort.setSize(newWidth, newHeight);  
   // Resize Scene Visible Area 
-  camera.setSize(viewPort.getW(), viewPort.getH());    // scale unchanged
+  camera.setSize(viewPort.getW(), viewPort.getH()); // Scale unchanged
 }
 //-------------------------------------------------------------------------
 
@@ -96,10 +96,10 @@ void key(unsigned char key, int x, int y)
     glutLeaveMainLoop();  // Freeglut's sentence for stopping glut's main loop 
     break;
   case '+': 
-    camera.scale(+0.01);   // zoom in  
+    camera.scale(+0.01);   // Zoom in  
     break;
   case '-':
-    camera.scale(-0.01);   // zoom out
+    camera.scale(-0.01);   // Zoom out
     break;
   case 'l':
 	  camera.set3D(); 
@@ -107,13 +107,15 @@ void key(unsigned char key, int x, int y)
   case 'o':
 	  camera.setAZ();
 	  break;
-  case 'a':
+  case 'a': // Gira el diabolo
 	  scene.getDiabolo()->incrementaAngulo();
+	  break;
+  case 'f': // Guarda en un archivo la imagen del renderizado
 	  break;
   default:
     need_redisplay = false;
     break;
-  }//switch
+  } // end switch
 
   if (need_redisplay)
     glutPostRedisplay();
@@ -140,7 +142,7 @@ void specialKey(int key, int x, int y)
   default:
     need_redisplay = false;
     break;
-  }//switch
+  } // end switch
 
   if (need_redisplay)
     glutPostRedisplay();

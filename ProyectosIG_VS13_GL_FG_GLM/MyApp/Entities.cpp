@@ -102,6 +102,8 @@ Diabolo::Diabolo(GLdouble r, GLdouble h) : Entity()
 {
 	mesh = Mesh::generateTriPyramidTex(r, h, 0);
 	texture.load("..\\Bmps\\emopng.bmp"); // cargamos la imagen
+
+	modelMat = translate(modelMat, dvec3(+200.0, r + 1.0 , 0.0));
 }
 
 void Diabolo::draw()
@@ -114,26 +116,30 @@ void Diabolo::draw()
 
 void Diabolo::render(dmat4 const& modelViewMat){
 	dmat4 aMat = modelViewMat*modelMat;
-	aMat = translate(aMat, dvec3(0, 0, -200.0));
-	aMat = rotate(aMat, angle, dvec3(0, 0, 1));
 
-	aMat = rotate(aMat, radians(0.0), dvec3(0, 0, 1));
-	Entity::render(aMat);
-	aMat = translate(aMat, dvec3(0, 0, 0.0));
+	glLoadMatrixd(value_ptr(aMat));
+	// aMat = translate(aMat, dvec3(0, 0, -200.0));
+	// aMat = rotate(aMat, radians(180.0), dvec3(0, 1, 0));
+	aMat = rotate(aMat, angle, dvec3(0, 0, 1)); // Para girarlo con la 'A'
 
+	// draw();
+
+	glLoadMatrixd(value_ptr(aMat));
 	aMat = rotate(aMat, radians(60.0), dvec3(0, 0, 1));
-	Entity::render(aMat);
 
+	draw();
+
+	glLoadMatrixd(value_ptr(aMat));
+	aMat = translate(aMat, dvec3(0, 0, 400.0));
 	aMat = rotate(aMat, radians(180.0), dvec3(0, 1, 0));
 
-	aMat = translate(aMat, dvec3(0, 0, -400.0));
+	draw();
 
-	aMat = rotate(aMat, radians(0.0), dvec3(0, 0, 1));
-	Entity::render(aMat);
-	aMat = translate(aMat, dvec3(0, 0, 0.0));
-
+	glLoadMatrixd(value_ptr(aMat));
+	aMat = translate(aMat, dvec3(0, 0, 400.0));
 	aMat = rotate(aMat, radians(60.0), dvec3(0, 0, 1));
-	Entity::render(aMat);
+
+	draw();
 }
 //-------------------------------------------------------------------------
 
@@ -245,10 +251,14 @@ void RectangleTex::draw()
 //-------------------------------------------------------------------------
 
 CubeTex::CubeTex(GLdouble l, int corTex){
-	mesh = Mesh::generateContCuboTex(l, corTex); // con coord. de textura
+	
+	mesh = Mesh::generateContCuboTex(l, corTex);
 	mesh2 = Mesh::generateRectangleTex(l, l, corTex);
-	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
+	// Cargamos las imagenes
+	texture.load("..\\Bmps\\Zelda.bmp");
 	texture2.load("..\\Bmps\\container.bmp");
+
+	modelMat = translate(modelMat, dvec3(-200.0, (l / 2) + 1.0, 0.0)); // Situa el cubo sobre "el suelo"
 }
 
 void CubeTex::draw()
@@ -277,12 +287,13 @@ void CubeTex::drawTop()
 	texture2.unbind();
 }
 
-
 void CubeTex::render(dmat4 const& modelViewMat)
 {
 	glEnable(GL_CULL_FACE);
 	
 	dmat4 aMat = modelViewMat*modelMat;
+
+	glLoadMatrixd(value_ptr(aMat));
 	draw();
 
 	aMat = modelViewMat*modelMat;
@@ -290,8 +301,7 @@ void CubeTex::render(dmat4 const& modelViewMat)
 	aMat = rotate(aMat, radians(-90.0), dvec3(1, 0, 0));
 	aMat = translate(aMat, dvec3(0, 0, -100.0));
 
-	glLoadMatrixd(value_ptr(aMat));
-
+	glLoadMatrixd(value_ptr(aMat));	
 	drawTop();
 
 	aMat = modelViewMat*modelMat;
@@ -303,7 +313,6 @@ void CubeTex::render(dmat4 const& modelViewMat)
 
 	drawTop();
 
-	texture2.unbind();
 	glDisable(GL_CULL_FACE);
 }
 
@@ -322,3 +331,29 @@ void TriPyramidTex::draw()
 	mesh->draw();
 	texture.unbind();
 }
+
+//-------------------------------------------------------------------------
+
+Suelo::Suelo(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex) : Entity() {
+	mesh = Mesh::generateRectangleTex(w, h, numCol, numFil, corTex); // con coord. de textura
+	texture.load("..\\Bmps\\picos.bmp"); // cargamos la imagen
+
+	modelMat = rotate(modelMat, radians(90.0), dvec3(1, 0, 0)); // Define la matriz de modo que sea horizontal
+}
+
+void Suelo::draw()
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	texture.bind();
+	mesh->draw();
+	texture.unbind();
+}
+
+void Suelo::render(dmat4 const& modelViewMat)
+{
+	dmat4 aMat = modelViewMat*modelMat;
+
+	glLoadMatrixd(value_ptr(aMat));
+	draw();
+}
+//-------------------------------------------------------------------------

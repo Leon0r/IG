@@ -9,33 +9,36 @@ void Scene::init()
   
   camera->setAZ();
     
-  // lights
+  // LIGHTS
 
-  // textures  
+  // TEXTURES  
+
   glEnable(GL_TEXTURE_2D);
 
-  // objets
+  // OBJECTS
+
   //objetos.push_back(new EjesRGB(200.0));
   //objetos.push_back(new Triangle(200.0));
   
-  objetos.push_back(new RectangleTex(300, 300, 3, 2, 0));
+  // objetos.push_back(new RectangleTex(300, 300, 3, 2, 0));
   objetos.push_back(new CubeTex(200, 1));
 
-  ////objetos.push_back(new TriangleRGB(200.0)); 
-  //objetos.push_back(new TriPyramid(200.0, 200.0));
-  //objetos.push_back(new ContCubo(200.0));
-
-  //objetos.push_back(new Cubo(200.0));
+  // objetos.push_back(new TriangleRGB(200.0)); 
+  // objetos.push_back(new TriPyramid(200.0, 200.0));
+  // objetos.push_back(new ContCubo(200.0));
+  // objetos.push_back(new Cubo(200.0));
 
   d = new Diabolo(100.0, 200.0);
   objetos.push_back(d);  
 
-  //objetos.push_back(new Dragon(3000));
-  objetos.push_back(new TriPyramidTex(200.0, 200.0, 0));
-  //objetos.push_back(new Poliespiral({ 0, 0 }, 0, 89.5, 0.5, 0.5, 100));
+  // objetos.push_back(new Dragon(3000));
+  // objetos.push_back(new TriPyramidTex(200.0, 200.0, 0));
+  // objetos.push_back(new Poliespiral({ 0, 0 }, 0, 89.5, 0.5, 0.5, 100));
 
-  findPositions(countElements());
-  findNewSize();
+  objetos.push_back(new Suelo(800, 800, 8, 8, 0));
+
+  // findPositions(countElements());
+  // findNewSize();
 }
 //-------------------------------------------------------------------------
 
@@ -52,12 +55,12 @@ Scene::~Scene()
 void Scene::render()
 {
 	glMatrixMode(GL_MODELVIEW);
-
-	camera->getVP()->setSize(w, h);
+	
+	// camera->getVP()->setSize(w, h);
 
 	for (int i = 0; i < objetos.size(); i++){
-		camera->getVP()->setPosition(pares[i].first, pares[i].second);
-
+		// camera->getVP()->setPosition(pares[i].first, pares[i].second);
+		camera->getVP()->setPosition(0, 0);
 		objetos[i]->render(camera->getViewMat());
 	}
 }

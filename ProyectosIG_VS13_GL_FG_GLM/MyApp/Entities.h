@@ -130,7 +130,7 @@ public:
 	CubeTex(GLdouble l, int corTex);
 	~CubeTex() { };
 	virtual void draw();
-	virtual void drawTop();
+	virtual void drawTop(); // Pinta los rectangulos de las tapas
 	virtual void render(glm::dmat4 const& modelViewMat);
 };
 
@@ -142,4 +142,16 @@ public:
 	~TriPyramidTex() { };
 	virtual void draw();
 };
+
+//-------------------------------------------------------------------------
+class Suelo : public Entity
+{
+public:
+	Suelo(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex);
+	~Suelo() { };
+	virtual void draw();
+	virtual void render(glm::dmat4 const& modelViewMat);
+};
+
+//-------------------------------------------------------------------------
 #endif //_H_Entities_H_
