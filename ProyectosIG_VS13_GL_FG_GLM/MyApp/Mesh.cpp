@@ -283,17 +283,15 @@ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, int corTex)
 	return m;
 }
 //-------------------------------------------------------------------------
- Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex)
+ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, GLint repCols, GLint repFils, int corTex)
  {
-	 // Textura por tiles
 	 Mesh* m = generateRectangle(w, h);
 
 	 m->texture = new dvec2[m->numVertices];
-	 m->texture[0] = dvec2(0, numFil);
+	 m->texture[0] = dvec2(0, repFils + 1.0);
 	 m->texture[1] = dvec2(0, 0);
-
-	 m->texture[2] = dvec2(numCol, numFil);
-	 m->texture[3] = dvec2(numCol, 0);
+	 m->texture[2] = dvec2(repCols + 1.0, repFils + 1.0);
+	 m->texture[3] = dvec2(repCols + 1.0, 0);
 	 return m;
 }
 //-------------------------------------------------------------------------

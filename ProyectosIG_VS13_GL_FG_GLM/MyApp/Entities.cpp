@@ -115,29 +115,29 @@ void Diabolo::draw()
 }
 
 void Diabolo::render(dmat4 const& modelViewMat){
+	modelMat = rotate(modelMat, angle, dvec3(0, 0, 1)); // Para girarlo con la 'G'
+
 	dmat4 aMat = modelViewMat*modelMat;
 
+	aMat = translate(aMat, dvec3(0, 0, -200.0));
 	glLoadMatrixd(value_ptr(aMat));
-	// aMat = translate(aMat, dvec3(0, 0, -200.0));
-	// aMat = rotate(aMat, radians(180.0), dvec3(0, 1, 0));
-	aMat = rotate(aMat, angle, dvec3(0, 0, 1)); // Para girarlo con la 'A'
-
-	// draw();
-
-	glLoadMatrixd(value_ptr(aMat));
-	aMat = rotate(aMat, radians(60.0), dvec3(0, 0, 1));
 
 	draw();
 
+	
+	aMat = rotate(aMat, radians(60.0), dvec3(0, 0, 1));
 	glLoadMatrixd(value_ptr(aMat));
+
+	draw();
+
 	aMat = translate(aMat, dvec3(0, 0, 400.0));
 	aMat = rotate(aMat, radians(180.0), dvec3(0, 1, 0));
+	glLoadMatrixd(value_ptr(aMat));
 
 	draw();
 
-	glLoadMatrixd(value_ptr(aMat));
-	aMat = translate(aMat, dvec3(0, 0, 400.0));
 	aMat = rotate(aMat, radians(60.0), dvec3(0, 0, 1));
+	glLoadMatrixd(value_ptr(aMat));
 
 	draw();
 }
@@ -334,8 +334,8 @@ void TriPyramidTex::draw()
 
 //-------------------------------------------------------------------------
 
-Suelo::Suelo(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex) : Entity() {
-	mesh = Mesh::generateRectangleTex(w, h, numCol, numFil, corTex); // con coord. de textura
+Suelo::Suelo(GLdouble w, GLdouble h, GLint repCols, GLint repFils, int corTex) : Entity() {
+	mesh = Mesh::generateRectangleTex(w, h, repCols, repFils, corTex); // con coord. de textura
 	texture.load("..\\Bmps\\picos.bmp"); // cargamos la imagen
 
 	modelMat = rotate(modelMat, radians(90.0), dvec3(1, 0, 0)); // Define la matriz de modo que sea horizontal
@@ -343,7 +343,6 @@ Suelo::Suelo(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex) : E
 
 void Suelo::draw()
 {
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	texture.bind();
 	mesh->draw();
 	texture.unbind();
@@ -351,9 +350,10 @@ void Suelo::draw()
 
 void Suelo::render(dmat4 const& modelViewMat)
 {
+	glEnable(GL_REPEAT);
 	dmat4 aMat = modelViewMat*modelMat;
-
 	glLoadMatrixd(value_ptr(aMat));
 	draw();
+	glDisable(GL_REPEAT);
 }
 //-------------------------------------------------------------------------

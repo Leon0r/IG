@@ -107,10 +107,22 @@ void key(unsigned char key, int x, int y)
   case 'o':
 	  camera.setAZ();
 	  break;
-  case 'a': // Gira el diabolo
+  case 'g': // Gira el diabolo
 	  scene.getDiabolo()->incrementaAngulo();
 	  break;
   case 'f': // Guarda en un archivo la imagen del renderizado
+	  break;
+  case 'w':
+	  camera.moveUD(-1);
+	  break;
+  case 'a':
+	  camera.moveUD(-1);
+	  break;
+  case 's':
+	  camera.moveUD(1);
+	  break;
+  case 'd':
+	  camera.moveUD(1);
 	  break;
   default:
     need_redisplay = false;

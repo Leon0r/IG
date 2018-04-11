@@ -21,7 +21,7 @@ public:
 	  GLdouble ladoIni, GLdouble incrLado, GLuint numVert);
 
   static Mesh* generateRectangleTex(GLdouble w, GLdouble h, int corTex);
-  static Mesh* generateRectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex);
+  static Mesh* generateRectangleTex(GLdouble w, GLdouble h, GLint repCols, GLint repFils, int corTex);
   static Mesh* generateTriPyramidTex(GLdouble r, GLdouble h, int corTex);
   static Mesh* generateContCuboTex(GLdouble l, int corTex);
 

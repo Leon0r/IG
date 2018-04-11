@@ -147,7 +147,7 @@ public:
 class Suelo : public Entity
 {
 public:
-	Suelo(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex);
+	Suelo(GLdouble w, GLdouble h, GLint repCols, GLint repFils, int corTex);
 	~Suelo() { };
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
