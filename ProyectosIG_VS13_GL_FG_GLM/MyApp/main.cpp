@@ -106,10 +106,10 @@ void key(unsigned char key, int x, int y)
     glutLeaveMainLoop();  // Freeglut's sentence for stopping glut's main loop 
     break;
   case '+': 
-    camera.scale(+0.01);   // Zoom in  
+    camera.scale(+0.01); // Zoom in  
     break;
   case '-':
-    camera.scale(-0.01);   // Zoom out
+    camera.scale(-0.01); // Zoom out
     break;
   case 'l':
 	  camera.set3D(); 
@@ -184,14 +184,19 @@ void specialKey(int key, int x, int y)
 // Captura en mCord las coordenadas del raton invirtiendo el eje Y
 void mouse(int button, int state, int x, int y)
 {
-
+	mCoord.x = x;
+	mCoord.y = glutGet(GLUT_WINDOW_HEIGHT) - y;
 }
 
 // Captura las coordenadas del raton y obtiene el desplazamiento con respecto a las anteriores corrdenadas
 // rota la direccion de vista de la camara en funcion del desplazamiento
 void motion(int x, int y)
 {
-
+	glm::dvec2 mOffset = mCoord; // var. global
+	mCoord = glm::dvec2(x, glutGet(GLUT_WINDOW_HEIGHT) - y);
+	mOffset = (mCoord - mOffset) * 0.05; // sensitivity = 0.05
+	camera.rotatePY(mOffset.y, mOffset.x);
+	glutPostRedisplay();
 }
 
 //-------------------------------------------------------------------------

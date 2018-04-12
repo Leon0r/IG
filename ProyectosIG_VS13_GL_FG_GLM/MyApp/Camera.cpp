@@ -36,7 +36,7 @@ void Camera::setAZ()
 	up = dvec3(0, 1, 0);
 	front = -normalize(eye - look);
 	right = normalize(cross(up, -front));
-	viewMat = lookAt(eye, look, up);
+	viewMat = lookAt(eye, eye + front, up);
 	setVM();
 }
 //-------------------------------------------------------------------------
@@ -48,14 +48,35 @@ void Camera::set3D()
 	up = dvec3(0, 1, 0);
 	front = -normalize(eye - look);
 	right = normalize(cross(up, -front));
-	viewMat = lookAt(eye, look, up);
+	viewMat = lookAt(eye, eye + front, up);
 	setVM();
 }
+//-------------------------------------------------------------------------
 
 // Cambia de proyeccion ortogonal a perspectiva
+void Camera::setPML()
+{
+	if (orto) 
+	{
+		glMatrixMode(GL_PROJECTION);
+		projMat = ortho(xLeft*factScale, xRight*factScale, yBot*factScale, yTop*factScale, nearVal, farVal);
+		glLoadMatrixd(value_ptr(projMat));
+		glMatrixMode(GL_MODELVIEW);
+	}
+	else 
+	{
+		nearVal = yTop;
+		glMatrixMode(GL_PROJECTION);
+		projMat = frustum(xLeft*factScale, xRight*factScale, yBot*factScale, yTop*factScale, nearVal, farVal);
+		glLoadMatrixd(value_ptr(projMat));
+		glMatrixMode(GL_MODELVIEW);
+	}
+}
+
 void Camera::setPrj()
 {
 	orto = !orto;
+	setPML();
 }
 
 //-------------------------------------------------------------------------
@@ -84,7 +105,6 @@ void Camera::moveUD(GLdouble cs)
 // Rota la direccion de vista de la camara sin modificar su posicion 
 void Camera::rotatePY(GLdouble incrPitch, GLdouble incrYaw) // Valores entre 0 y 360 grados
 {
-	GLdouble pitchCam = 0, yawCam = 0;
 	// Actualizar los angulos
 	pitchCam += incrPitch;
 	yawCam += incrYaw;
@@ -93,10 +113,10 @@ void Camera::rotatePY(GLdouble incrPitch, GLdouble incrYaw) // Valores entre 0 y
 	if (pitchCam > 89.5)
 		 pitchCam = 89.5;
 
-	if (pitchCam < 89.5)
+	else if (pitchCam <= 89.5)
 		pitchCam = 89.5;
 
-	if (yawCam >= 360) 
+	if (yawCam >= 360)
 		yawCam -= 360;
 
 	// Actualizar la direccion de vista

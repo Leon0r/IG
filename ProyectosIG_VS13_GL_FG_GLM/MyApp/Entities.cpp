@@ -100,7 +100,7 @@ void ContCubo::draw()
 
 Diabolo::Diabolo(GLdouble r, GLdouble h) : Entity()
 {
-	mesh = Mesh::generateTriPyramidTex(r, h, 0);
+	mesh = Mesh::generateTriPyramidTex(r, h);
 	texture.load("..\\Bmps\\floris.bmp"); // cargamos la imagen
 
 	modelMat = translate(modelMat, dvec3(+200.0, r + 1.0 , 0.0));
@@ -230,14 +230,14 @@ void Poliespiral::render(dmat4 const& modelViewMat){
 }
 //-------------------------------------------------------------------------
 
-RectangleTex::RectangleTex(GLdouble w, GLdouble h, int corTex) : Entity()
+RectangleTex::RectangleTex(GLdouble w, GLdouble h) : Entity()
 {
-	mesh = Mesh::generateRectangleTex(w, h, corTex); // con coord. de textura
+	mesh = Mesh::generateRectangleTex(w, h); // con coord. de textura
 	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
 }
 
-RectangleTex::RectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex){
-	mesh = Mesh::generateRectangleTex(w, h, numCol, numFil,  corTex); // con coord. de textura
+RectangleTex::RectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil){
+	mesh = Mesh::generateRectangleTex(w, h, numCol, numFil); // con coord. de textura
 	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
 }
 
@@ -250,10 +250,10 @@ void RectangleTex::draw()
 }
 //-------------------------------------------------------------------------
 
-CubeTex::CubeTex(GLdouble l, int corTex){
+CubeTex::CubeTex(GLdouble l){
 	
-	mesh = Mesh::generateContCuboTex(l, corTex);
-	mesh2 = Mesh::generateRectangleTex(l, l, corTex);
+	mesh = Mesh::generateContCuboTex(l);
+	mesh2 = Mesh::generateRectangleTex(l, l);
 	// Cargamos las imagenes
 	texture.load("..\\Bmps\\container.bmp");
 	texture2.load("..\\Bmps\\chuches.bmp");
@@ -318,9 +318,9 @@ void CubeTex::render(dmat4 const& modelViewMat)
 
 //-------------------------------------------------------------------------
 
-TriPyramidTex::TriPyramidTex(GLdouble r, GLdouble h, int corTex) : Entity()
+TriPyramidTex::TriPyramidTex(GLdouble r, GLdouble h) : Entity()
 {
-	mesh = Mesh::generateTriPyramidTex(r, h, corTex); // con coord. de textura
+	mesh = Mesh::generateTriPyramidTex(r, h); // con coord. de textura
 	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
 }
 
@@ -334,8 +334,8 @@ void TriPyramidTex::draw()
 
 //-------------------------------------------------------------------------
 
-Suelo::Suelo(GLdouble w, GLdouble h, GLint repCols, GLint repFils, int corTex) : Entity() {
-	mesh = Mesh::generateRectangleTex(w, h, repCols, repFils, corTex); // con coord. de textura
+Suelo::Suelo(GLdouble w, GLdouble h, GLint repCols, GLint repFils) : Entity() {
+	mesh = Mesh::generateRectangleTex(w, h, repCols, repFils);
 	texture.load("..\\Bmps\\baldosaC.bmp"); // cargamos la imagen
 
 	modelMat = rotate(modelMat, radians(90.0), dvec3(1, 0, 0)); // Define la matriz de modo que sea horizontal
@@ -356,4 +356,50 @@ void Suelo::render(dmat4 const& modelViewMat)
 	draw();
 	glDisable(GL_REPEAT);
 }
+
+//-------------------------------------------------------------------------
+
+GlassPot::GlassPot(GLdouble l) : Entity() {
+	mesh = Mesh::generateContCuboTex(l);
+	texture.load("..\\Bmps\\window.bmp");
+	modelMat = translate(modelMat, dvec3(200.0, (l / 2) + 1.0, 200.0)); // Situa el cubo sobre "el suelo"
+}
+
+void GlassPot::draw()
+{
+	texture.bind();
+	mesh->draw();
+	texture.unbind();
+
+}
+
+void GlassPot::render(dmat4 const& modelViewMat)
+{
+	dmat4 aMat = modelViewMat*modelMat;
+	glLoadMatrixd(value_ptr(aMat));
+	draw();
+}
+
+//-------------------------------------------------------------------------
+
+Grass::Grass(GLdouble w, GLdouble h) : Entity() {
+	mesh = Mesh::generateRectangleTex(w, h);
+	texture.load("..\\Bmps\\grass.bmp");
+	modelMat = translate(modelMat, dvec3(200.0, (h / 2) + 1.0, 200.0)); // Situa el cubo sobre "el suelo"
+}
+
+void Grass::draw()
+{
+	texture.bind();
+	mesh->draw();
+	texture.unbind();
+}
+
+void Grass::render(dmat4 const& modelViewMat)
+{
+	dmat4 aMat = modelViewMat*modelMat;
+	glLoadMatrixd(value_ptr(aMat));
+	draw();
+}
+
 //-------------------------------------------------------------------------

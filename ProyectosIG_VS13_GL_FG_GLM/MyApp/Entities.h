@@ -115,8 +115,8 @@ public:
 class RectangleTex : public Entity
 {
 public:
-	RectangleTex(GLdouble w, GLdouble h, int corTex);
-	RectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil, int corTex);
+	RectangleTex(GLdouble w, GLdouble h);
+	RectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil);
 	~RectangleTex() { };
 	virtual void draw();
 };
@@ -127,7 +127,7 @@ class CubeTex : public Entity
 public:
 	Mesh* mesh2 = nullptr;
 	
-	CubeTex(GLdouble l, int corTex);
+	CubeTex(GLdouble l);
 	~CubeTex() { };
 	virtual void draw();
 	virtual void drawTop(); // Pinta los rectangulos de las tapas
@@ -138,7 +138,7 @@ public:
 class TriPyramidTex : public Entity
 {
 public:
-	TriPyramidTex(GLdouble r, GLdouble h, int corTex);
+	TriPyramidTex(GLdouble r, GLdouble h);
 	~TriPyramidTex() { };
 	virtual void draw();
 };
@@ -147,8 +147,28 @@ public:
 class Suelo : public Entity
 {
 public:
-	Suelo(GLdouble w, GLdouble h, GLint repCols, GLint repFils, int corTex);
+	Suelo(GLdouble w, GLdouble h, GLint repCols, GLint repFils);
 	~Suelo() { };
+	virtual void draw();
+	virtual void render(glm::dmat4 const& modelViewMat);
+};
+
+//-------------------------------------------------------------------------
+class GlassPot : public Entity
+{
+public:
+	GlassPot(GLdouble l);
+	~GlassPot() { };
+	virtual void draw();
+	virtual void render(glm::dmat4 const& modelViewMat);
+};
+
+//-------------------------------------------------------------------------
+class Grass : public Entity
+{
+public:
+	Grass(GLdouble w, GLdouble h);
+	~Grass() { };
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
 };

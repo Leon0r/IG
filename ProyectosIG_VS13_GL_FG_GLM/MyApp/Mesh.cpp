@@ -269,7 +269,7 @@ void Mesh::movePoliespiral(GLdouble& x, GLdouble& y, GLdouble angulo, GLdouble l
 }
 //-------------------------------------------------------------------------
 
-Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, int corTex)
+Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h)
 {
 	// Textura por ampliacion
 	Mesh* m = generateRectangle(w, h);
@@ -283,7 +283,7 @@ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, int corTex)
 	return m;
 }
 //-------------------------------------------------------------------------
- Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, GLint repCols, GLint repFils, int corTex)
+ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, GLint repCols, GLint repFils)
  {
 	 Mesh* m = generateRectangle(w, h);
 
@@ -296,7 +296,7 @@ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, int corTex)
 }
 //-------------------------------------------------------------------------
 
- Mesh* Mesh::generateTriPyramidTex(GLdouble r, GLdouble h, int corTex)
+ Mesh* Mesh::generateTriPyramidTex(GLdouble r, GLdouble h)
  {
 	 Mesh* m = generateTriPyramid(r, h);
 
@@ -311,7 +311,7 @@ Mesh* Mesh::generateRectangleTex(GLdouble w, GLdouble h, int corTex)
  }
 //-------------------------------------------------------------------------
 
-Mesh* Mesh::generateContCuboTex(GLdouble l, int corTex)
+Mesh* Mesh::generateContCuboTex(GLdouble l)
 {
 	Mesh* m = generateContCubo(l);
 

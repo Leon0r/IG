@@ -20,8 +20,8 @@ void Scene::init()
   objetos.push_back(new EjesRGB(200.0));
   //objetos.push_back(new Triangle(200.0));
   
-  // objetos.push_back(new RectangleTex(300, 300, 3, 2, 0));
-  objetos.push_back(new CubeTex(200, 1));
+  // objetos.push_back(new RectangleTex(300, 300, 3, 2));
+  objetos.push_back(new CubeTex(200));
 
   // objetos.push_back(new TriangleRGB(200.0)); 
   // objetos.push_back(new TriPyramid(200.0, 200.0));
@@ -32,10 +32,10 @@ void Scene::init()
   objetos.push_back(d);  
 
   // objetos.push_back(new Dragon(3000));
-  // objetos.push_back(new TriPyramidTex(200.0, 200.0, 0));
+  // objetos.push_back(new TriPyramidTex(200.0, 200.0));
   // objetos.push_back(new Poliespiral({ 0, 0 }, 0, 89.5, 0.5, 0.5, 100));
 
-  objetos.push_back(new Suelo(800, 800, 8, 8, 0));
+  objetos.push_back(new Suelo(800, 800, 8, 8));
 
   // findPositions(countElements());
   // findNewSize();
