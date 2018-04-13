@@ -14,6 +14,7 @@ void Scene::init()
   // TEXTURES  
 
   glEnable(GL_TEXTURE_2D);
+  glEnable(GL_BLEND);
 
   // OBJECTS
 
@@ -28,8 +29,8 @@ void Scene::init()
   // objetos.push_back(new ContCubo(200.0));
   // objetos.push_back(new Cubo(200.0));
 
-  d = new Diabolo(100.0, 200.0);
-  objetos.push_back(d);  
+  // d = new Diabolo(100.0, 200.0);
+  // objetos.push_back(d);  
 
   // objetos.push_back(new Dragon(3000));
   // objetos.push_back(new TriPyramidTex(200.0, 200.0));
@@ -37,6 +38,9 @@ void Scene::init()
 
   objetos.push_back(new Suelo(800, 800, 8, 8));
 
+  objetos.push_back(new Grass(200, 200));
+
+  objetos.push_back(new GlassPot(200));
   // findPositions(countElements());
   // findNewSize();
 }
@@ -49,6 +53,9 @@ Scene::~Scene()
   {
 	  delete it;
   }
+
+  glDisable(GL_TEXTURE_2D);
+  glDisable(GL_BLEND);
 }
 //-------------------------------------------------------------------------
 

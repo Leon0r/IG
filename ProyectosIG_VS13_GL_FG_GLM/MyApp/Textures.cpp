@@ -7,9 +7,35 @@ bool Texture::load(const std::string & BMP_Name, GLubyte alpha){
 
 	PixMap32RGBA pixMap; // Var. local para cargar la imagen del archivo
 	pixMap.load_bmp24BGR(BMP_Name); // Carga y añade alpha=255
+
 	// Carga correcta ?
 	if (alpha != 255) 
 		pixMap.set_alpha(alpha);
+
+	w = pixMap.width();
+	h = pixMap.height();
+	glBindTexture(GL_TEXTURE_2D, id);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA,
+		GL_UNSIGNED_BYTE, pixMap.data());
+	// Transferir a openGL
+
+	return true;
+}
+
+bool Texture::load(const std::string & BMP_Name, glm::ivec3 color, GLubyte alpha) {
+
+	if (id == 0)
+		init();
+
+	PixMap32RGBA::rgba_color color2 = { color.r, color.g, color.b, alpha };
+
+	PixMap32RGBA pixMap; // Var. local para cargar la imagen del archivo
+
+	pixMap.load_bmp24BGR(BMP_Name); // Carga y añade alpha=255
+
+	// Carga correcta ?
+	if (alpha != 255)
+		pixMap.set_colorkey_alpha(color2, alpha);
 
 	w = pixMap.width();
 	h = pixMap.height();

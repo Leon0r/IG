@@ -36,6 +36,10 @@ void Camera::setAZ()
 	up = dvec3(0, 1, 0);
 	front = -normalize(eye - look);
 	right = normalize(cross(up, -front));
+	// Reasigna los angulos de la camara
+	pitchCam = 0;
+	yawCam = 0;
+
 	viewMat = lookAt(eye, eye + front, up);
 	setVM();
 }
@@ -48,6 +52,10 @@ void Camera::set3D()
 	up = dvec3(0, 1, 0);
 	front = -normalize(eye - look);
 	right = normalize(cross(up, -front));
+	// Reasigna los angulos de la camara
+	pitchCam = degrees(asin(front.y));
+	yawCam = degrees(asin(front.x / cos(radians(pitchCam))));
+
 	viewMat = lookAt(eye, eye + front, up);
 	setVM();
 }
@@ -113,8 +121,8 @@ void Camera::rotatePY(GLdouble incrPitch, GLdouble incrYaw) // Valores entre 0 y
 	if (pitchCam > 89.5)
 		 pitchCam = 89.5;
 
-	else if (pitchCam <= 89.5)
-		pitchCam = 89.5;
+	else if (pitchCam <= -89.5)
+		pitchCam = -89.5;
 
 	if (yawCam >= 360)
 		yawCam -= 360;
@@ -124,6 +132,9 @@ void Camera::rotatePY(GLdouble incrPitch, GLdouble incrYaw) // Valores entre 0 y
 	front.y = sin(radians(pitchCam));
 	front.z = -cos(radians(yawCam)) * cos(radians(pitchCam));
 	front = glm::normalize(front);
+
+	right = glm::normalize(cross(up, -front));
+
 	viewMat = lookAt(eye, eye + front, up);
 }
 
@@ -139,12 +150,14 @@ void Camera::setVM()
 void Camera::pitch(GLdouble a)
 {
 	viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(1.0, 0, 0));
+	rotatePY(a, 0); // Guarda la ultima pos
 }
 //-------------------------------------------------------------------------
 
 void Camera::yaw(GLdouble a)
 {
 	viewMat = rotate(viewMat, glm::radians(-a), glm::dvec3(0, 1.0, 0));
+	rotatePY(0, a); // Guarda la ultima pos
 }
 //-------------------------------------------------------------------------
 

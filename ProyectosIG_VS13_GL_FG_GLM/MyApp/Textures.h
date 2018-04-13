@@ -10,6 +10,7 @@ public:
 	Texture() : w(0), h(0), id(0) {};
 	~Texture() { if (id != 0) glDeleteTextures(1, &id); };
 	bool load(const std::string & BMP_Name, GLubyte alpha = 255);
+	bool load(const std::string & BMP_Name, glm::ivec3 color, GLubyte alpha);
 	
 	// Carga en la imagen de la textura la imagen del Color Buffer
 	void loadColorBuffer(GLsizei width, GLsizei height);

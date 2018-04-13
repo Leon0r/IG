@@ -116,6 +116,7 @@ void Diabolo::draw()
 
 void Diabolo::render(dmat4 const& modelViewMat){
 	modelMat = rotate(modelMat, angle, dvec3(0, 0, 1)); // Para girarlo con la 'G'
+	angle = 0; // Resetea el angulo
 
 	dmat4 aMat = modelViewMat*modelMat;
 
@@ -261,6 +262,7 @@ CubeTex::CubeTex(GLdouble l){
 	modelMat = translate(modelMat, dvec3(-200.0, (l / 2) + 1.0, 0.0)); // Situa el cubo sobre "el suelo"
 }
 
+/// LEONOR QUIERE PASAR MIERDAS POR PARAMETRO
 void CubeTex::draw()
 {
 	glCullFace(GL_FRONT);
@@ -361,7 +363,7 @@ void Suelo::render(dmat4 const& modelViewMat)
 
 GlassPot::GlassPot(GLdouble l) : Entity() {
 	mesh = Mesh::generateContCuboTex(l);
-	texture.load("..\\Bmps\\window.bmp");
+	texture.load("..\\Bmps\\window.bmp", 150);
 	modelMat = translate(modelMat, dvec3(200.0, (l / 2) + 1.0, 200.0)); // Situa el cubo sobre "el suelo"
 }
 
@@ -370,22 +372,27 @@ void GlassPot::draw()
 	texture.bind();
 	mesh->draw();
 	texture.unbind();
-
 }
 
 void GlassPot::render(dmat4 const& modelViewMat)
 {
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDepthMask(GL_FALSE);
+
 	dmat4 aMat = modelViewMat*modelMat;
 	glLoadMatrixd(value_ptr(aMat));
 	draw();
+
+	glDepthMask(GL_TRUE);
 }
 
 //-------------------------------------------------------------------------
 
 Grass::Grass(GLdouble w, GLdouble h) : Entity() {
 	mesh = Mesh::generateRectangleTex(w, h);
-	texture.load("..\\Bmps\\grass.bmp");
-	modelMat = translate(modelMat, dvec3(200.0, (h / 2) + 1.0, 200.0)); // Situa el cubo sobre "el suelo"
+	texture.load("..\\Bmps\\grass.bmp", { 0,0,0 }, 0);
+	modelMat = translate(modelMat, dvec3(200.0, (h / 2) + 1.0, 200.0)); // Lo situa sobre "el suelo"
+	modelMat = rotate(modelMat, radians(45.0), dvec3(0, 1, 0));
 }
 
 void Grass::draw()
@@ -397,9 +404,19 @@ void Grass::draw()
 
 void Grass::render(dmat4 const& modelViewMat)
 {
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // Hace transparente al principio
+	glDepthMask(GL_FALSE);
+
 	dmat4 aMat = modelViewMat*modelMat;
+
 	glLoadMatrixd(value_ptr(aMat));
 	draw();
+
+	aMat = rotate(aMat, radians(90.0), dvec3(0, 1, 0));
+	glLoadMatrixd(value_ptr(aMat));
+	draw();
+
+	glDepthMask(GL_TRUE);
 }
 
 //-------------------------------------------------------------------------

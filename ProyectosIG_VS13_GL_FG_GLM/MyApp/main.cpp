@@ -122,7 +122,7 @@ void key(unsigned char key, int x, int y)
 	  break;
   case 'f': // Guarda en un archivo la imagen del renderizado
 	  texture.loadColorBuffer(viewPort.getW(), viewPort.getH());
-	  texture.save("renderizado.bmp");
+	  texture.save("..\\Bmps\\renderizado.bmp");
 	  break;
   case 'w':
 	  camera.moveUD(10);
