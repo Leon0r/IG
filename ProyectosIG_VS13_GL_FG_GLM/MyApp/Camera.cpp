@@ -110,7 +110,7 @@ void Camera::moveUD(GLdouble cs)
 	viewMat = lookAt(eye, eye + front, up);
 }
 
-// Rota la direccion de vista de la camara sin modificar su posicion 
+// Rota la direccion de vista de la camara sin modificar su posicion (para el raton)
 void Camera::rotatePY(GLdouble incrPitch, GLdouble incrYaw) // Valores entre 0 y 360 grados
 {
 	// Actualizar los angulos

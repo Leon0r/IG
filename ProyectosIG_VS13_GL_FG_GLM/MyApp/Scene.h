@@ -18,6 +18,7 @@ public:
 	  ~Scene();
     void init();
 	  void render();
+	  void update(GLuint timeElapsed);
 	  Diabolo* getDiabolo(){ return d; }
 protected:
 	  Camera* camera;

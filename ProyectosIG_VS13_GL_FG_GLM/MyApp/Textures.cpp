@@ -50,6 +50,8 @@ bool Texture::load(const std::string & BMP_Name, glm::ivec3 color, GLubyte alpha
 // Carga en la imagen de la textura la imagen del Color Buffer
 void Texture::loadColorBuffer(GLsizei width, GLsizei height)
 {
+	// init(); // Esto carga la textura como el texture.load(BMP_NAME)
+
 	glReadBuffer(GL_FRONT);
 	glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 
 	  0, 0, width, height, 0); // En coordenadas de pantalla (como el puerto de vista)

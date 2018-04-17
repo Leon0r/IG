@@ -28,6 +28,12 @@ Texture texture;
 // Coordenadas
 glm::dvec2 mCoord;
 
+// Timer
+GLuint last_time_update_tick;
+
+// Bool animacion
+bool animation = true;
+
 //----------- Callbacks ----------------------------------------------------
 
 void display();
@@ -36,6 +42,8 @@ void key(unsigned char key, int x, int y);
 void specialKey(int key, int x, int y);
 void mouse(int button, int state, int x, int y);
 void motion(int x, int y);
+void update();
+void ToggleAnimation();
 
 //-------------------------------------------------------------------------
 
@@ -63,6 +71,7 @@ int main(int argc, char *argv[])
   glutDisplayFunc(display);
   glutMouseFunc(mouse);
   glutMotionFunc(motion);
+  glutIdleFunc(update); // Se llama cuando la aplicacion esta desocupada
  
   cout << glGetString(GL_VERSION) << '\n';
   cout << glGetString(GL_VENDOR) << '\n';
@@ -76,6 +85,18 @@ int main(int argc, char *argv[])
 
   return 0;
 }
+//-------------------------------------------------------------------------
+
+void update() 
+{	
+	if (animation) 
+	{
+		scene.update(glutGet(GLUT_ELAPSED_TIME) - last_time_update_tick);
+		last_time_update_tick = glutGet(GLUT_ELAPSED_TIME);
+		glutPostRedisplay(); // Importante
+	}
+}
+
 //-------------------------------------------------------------------------
 
 void display() // Double buffer
@@ -118,7 +139,7 @@ void key(unsigned char key, int x, int y)
 	  camera.setAZ();
 	  break;
   case 'g': // Gira el diabolo
-	  scene.getDiabolo()->incrementaAngulo();
+	  // scene.getDiabolo()->incrementaAngulo();
 	  break;
   case 'f': // Guarda en un archivo la imagen del renderizado
 	  texture.loadColorBuffer(viewPort.getW(), viewPort.getH());
@@ -144,6 +165,9 @@ void key(unsigned char key, int x, int y)
 	  break;
   case 'p':
 	  camera.setPrj();
+	  break;
+  case 'z':
+	  ToggleAnimation();
 	  break;
   default:
     need_redisplay = false;
@@ -197,6 +221,12 @@ void motion(int x, int y)
 	mOffset = (mCoord - mOffset) * 0.05; // sensitivity = 0.05
 	camera.rotatePY(mOffset.y, mOffset.x);
 	glutPostRedisplay();
+}
+
+// Activa o desactiva la animacion de los updates
+void ToggleAnimation() 
+{
+	animation = !animation;
 }
 
 //-------------------------------------------------------------------------

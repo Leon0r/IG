@@ -17,6 +17,7 @@ void Scene::init()
   glEnable(GL_BLEND);
 
   // OBJECTS
+  objetos.push_back(new Foto(80, 60));
 
   objetos.push_back(new EjesRGB(200.0));
   //objetos.push_back(new Triangle(200.0));
@@ -29,8 +30,8 @@ void Scene::init()
   // objetos.push_back(new ContCubo(200.0));
   // objetos.push_back(new Cubo(200.0));
 
-  // d = new Diabolo(100.0, 200.0);
-  // objetos.push_back(d);  
+   d = new Diabolo(100.0, 200.0);
+   objetos.push_back(d);  
 
   // objetos.push_back(new Dragon(3000));
   // objetos.push_back(new TriPyramidTex(200.0, 200.0));
@@ -38,9 +39,11 @@ void Scene::init()
 
   objetos.push_back(new Suelo(800, 800, 8, 8));
 
+
   objetos.push_back(new Grass(200, 200));
 
   objetos.push_back(new GlassPot(200));
+
   // findPositions(countElements());
   // findNewSize();
 }
@@ -71,6 +74,14 @@ void Scene::render()
 		objetos[i]->render(camera->getViewMat());
 	}
 }
+
+void Scene::update(GLuint timeElapsed)
+{
+	for each (Entity* it in objetos) {
+		it->update(timeElapsed);
+	}
+}
+
 //-------------------------------------------------------------------------
 
 int Scene::countElements(){

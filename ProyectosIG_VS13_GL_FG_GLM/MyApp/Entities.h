@@ -16,6 +16,7 @@ public:
 	virtual ~Entity() { delete mesh; };
 
 	virtual void render(glm::dmat4 const& modelViewMat);
+	virtual void update(GLuint timeElapsed) {}
 
 protected:
 	Texture texture,
@@ -76,6 +77,7 @@ public:
 
 	Diabolo(GLdouble r, GLdouble h);
 	~Diabolo() { };
+	virtual void update(GLuint timeElapsed);
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
 	void incrementaAngulo(){ angle += 5.0; };
@@ -169,6 +171,18 @@ class Grass : public Entity
 public:
 	Grass(GLdouble w, GLdouble h);
 	~Grass() { };
+	virtual void draw();
+	virtual void render(glm::dmat4 const& modelViewMat);
+};
+
+//-------------------------------------------------------------------------
+class Foto : public Entity
+{
+public:
+	GLuint timer = 0;
+	Foto(GLdouble w, GLdouble h);
+	~Foto() { };
+	virtual void update(GLuint timeElapsed);
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
 };

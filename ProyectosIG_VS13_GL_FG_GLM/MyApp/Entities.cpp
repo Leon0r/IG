@@ -103,7 +103,13 @@ Diabolo::Diabolo(GLdouble r, GLdouble h) : Entity()
 	mesh = Mesh::generateTriPyramidTex(r, h);
 	texture.load("..\\Bmps\\floris.bmp"); // cargamos la imagen
 
-	modelMat = translate(modelMat, dvec3(+200.0, r + 1.0 , 0.0));
+	modelMat = translate(modelMat, dvec3(50.0, r + 1.0 , -200.0));
+}
+
+void Diabolo::update(GLuint timeElapsed)
+{
+	angle = mod(angle + 0.25 * timeElapsed, 360.0);
+	
 }
 
 void Diabolo::draw()
@@ -115,17 +121,18 @@ void Diabolo::draw()
 }
 
 void Diabolo::render(dmat4 const& modelViewMat){
-	modelMat = rotate(modelMat, angle, dvec3(0, 0, 1)); // Para girarlo con la 'G'
-	angle = 0; // Resetea el angulo
+	// modelMat = rotate(modelMat, angle, dvec3(0, 0, 1)); // Para girarlo con la 'G'
+	// angle = 0;
 
 	dmat4 aMat = modelViewMat*modelMat;
+
+	aMat = rotate(aMat, radians(angle), dvec3(0, 0, 1));
 
 	aMat = translate(aMat, dvec3(0, 0, -200.0));
 	glLoadMatrixd(value_ptr(aMat));
 
 	draw();
 
-	
 	aMat = rotate(aMat, radians(60.0), dvec3(0, 0, 1));
 	glLoadMatrixd(value_ptr(aMat));
 
@@ -262,7 +269,6 @@ CubeTex::CubeTex(GLdouble l){
 	modelMat = translate(modelMat, dvec3(-200.0, (l / 2) + 1.0, 0.0)); // Situa el cubo sobre "el suelo"
 }
 
-/// LEONOR QUIERE PASAR MIERDAS POR PARAMETRO
 void CubeTex::draw()
 {
 	glCullFace(GL_FRONT);
@@ -322,7 +328,7 @@ void CubeTex::render(dmat4 const& modelViewMat)
 
 TriPyramidTex::TriPyramidTex(GLdouble r, GLdouble h) : Entity()
 {
-	mesh = Mesh::generateTriPyramidTex(r, h); // con coord. de textura
+	mesh = Mesh::generateTriPyramidTex(r, h);
 	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
 }
 
@@ -420,3 +426,37 @@ void Grass::render(dmat4 const& modelViewMat)
 }
 
 //-------------------------------------------------------------------------
+
+Foto::Foto(GLdouble w, GLdouble h) : Entity() {
+	mesh = Mesh::generateRectangleTex(w, h);
+	texture.load("..\\Bmps\\renderizado.bmp"); // Esto llama al init()
+	modelMat = translate(modelMat, dvec3(0.0, 2.0, 0.0));
+	modelMat = rotate(modelMat, radians(90.0), dvec3(1, 0, 0)); // Define la matriz de modo que sea horizontal
+}
+
+void Foto::update(GLuint timeElapsed)
+{
+	timer += timeElapsed;
+	if (timer > 1000)
+	{
+		// Sin llamar al init() texture.bind() y texture.unbind() son necesarios
+		texture.bind();
+		texture.loadColorBuffer(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+		texture.unbind();
+		timer = 0;
+	}
+}
+
+void Foto::draw()
+{
+	texture.bind();
+	mesh->draw();
+	texture.unbind();
+}
+
+void Foto::render(dmat4 const& modelViewMat)
+{
+	dmat4 aMat = modelViewMat*modelMat;
+	glLoadMatrixd(value_ptr(aMat));
+	draw();
+}
