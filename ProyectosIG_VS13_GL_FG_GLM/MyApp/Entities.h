@@ -6,6 +6,7 @@
 #include <glm.hpp>
 #include "Mesh.h"
 #include "Textures.h"
+#include "Material.h"
 
 //-------------------------------------------------------------------------
 
@@ -17,14 +18,19 @@ public:
 
 	virtual void render(glm::dmat4 const& modelViewMat);
 	virtual void update(GLuint timeElapsed) {}
-
+	
 protected:
 	Texture texture,
 			texture2;
+	Material material;
 	Mesh* mesh = nullptr;
 	glm::dmat4 modelMat;
 	virtual void draw();
 	virtual void setMvM(glm::dmat4 const& modelViewMat);
+
+	void setModelMat(glm::dmat4 const& mMat) { modelMat = mMat; }
+	void setMaterial(Material const& mt) { material = mt; }
+	void setTexture(Texture const& tex) { texture = tex; }
 };
 
 //-------------------------------------------------------------------------
@@ -183,6 +189,17 @@ public:
 	Foto(GLdouble w, GLdouble h);
 	~Foto() { };
 	virtual void update(GLuint timeElapsed);
+	virtual void draw();
+	virtual void render(glm::dmat4 const& modelViewMat);
+};
+
+//-------------------------------------------------------------------------
+
+class Esfera : public Entity
+{
+public:
+	Esfera(GLdouble r);
+	~Esfera() { };
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
 };

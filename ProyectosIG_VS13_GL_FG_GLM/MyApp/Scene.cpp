@@ -10,9 +10,10 @@ void Scene::init()
   camera->setAZ();
     
   // LIGHTS
+  glEnable(GL_LIGHTING);
+  glEnable(GL_NORMALIZE);
 
   // TEXTURES  
-
   glEnable(GL_TEXTURE_2D);
   glEnable(GL_BLEND);
 

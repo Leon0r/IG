@@ -16,6 +16,7 @@ void Entity::render(dmat4 const& modelViewMat)
 
 void Entity::draw() 
 { 
+	material.load();
   if (mesh != nullptr) 
     mesh -> draw(); 
 }
@@ -439,6 +440,7 @@ void Foto::update(GLuint timeElapsed)
 	timer += timeElapsed;
 	if (timer > 1000)
 	{
+		// Esto tiene que ver con el init de textures()
 		// Sin llamar al init() texture.bind() y texture.unbind() son necesarios
 		texture.bind();
 		texture.loadColorBuffer(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
@@ -459,4 +461,21 @@ void Foto::render(dmat4 const& modelViewMat)
 	dmat4 aMat = modelViewMat*modelMat;
 	glLoadMatrixd(value_ptr(aMat));
 	draw();
+}
+
+//-------------------------------------------------------------------------
+
+Esfera::Esfera(GLdouble r) : Entity() 
+{
+
+}
+
+void Esfera::draw()
+{
+
+}
+
+void Esfera::render(dmat4 const& modelViewMat)
+{
+
 }
