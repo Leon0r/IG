@@ -472,10 +472,12 @@ Esfera::Esfera(GLdouble r) : Entity()
 
 void Esfera::draw()
 {
-
+	esfera = gluNewQuadric();
+	gluQuadricDrawStyle(esfera, GLU_FILL);
+	gluSphere(esfera, 50, 10, 10);
 }
 
 void Esfera::render(dmat4 const& modelViewMat)
 {
-
+	draw();
 }

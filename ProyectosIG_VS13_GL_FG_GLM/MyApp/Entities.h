@@ -198,6 +198,7 @@ public:
 class Esfera : public Entity
 {
 public:
+	GLUquadricObj * esfera;
 	Esfera(GLdouble r);
 	~Esfera() { };
 	virtual void draw();

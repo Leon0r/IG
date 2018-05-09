@@ -18,32 +18,34 @@ void Scene::init()
   glEnable(GL_BLEND);
 
   // OBJECTS
-  objetos.push_back(new Foto(80, 60));
+  // objetos.push_back(new Foto(80, 60));
 
   objetos.push_back(new EjesRGB(200.0));
   //objetos.push_back(new Triangle(200.0));
   
   // objetos.push_back(new RectangleTex(300, 300, 3, 2));
-  objetos.push_back(new CubeTex(200));
+  // objetos.push_back(new CubeTex(200));
 
   // objetos.push_back(new TriangleRGB(200.0)); 
   // objetos.push_back(new TriPyramid(200.0, 200.0));
   // objetos.push_back(new ContCubo(200.0));
   // objetos.push_back(new Cubo(200.0));
 
-   d = new Diabolo(100.0, 200.0);
-   objetos.push_back(d);  
+   // d = new Diabolo(100.0, 200.0);
+   // objetos.push_back(d);  
 
   // objetos.push_back(new Dragon(3000));
   // objetos.push_back(new TriPyramidTex(200.0, 200.0));
   // objetos.push_back(new Poliespiral({ 0, 0 }, 0, 89.5, 0.5, 0.5, 100));
 
-  objetos.push_back(new Suelo(800, 800, 8, 8));
+  // objetos.push_back(new Suelo(800, 800, 8, 8));
 
 
-  objetos.push_back(new Grass(200, 200));
+  // objetos.push_back(new Grass(200, 200));
 
-  objetos.push_back(new GlassPot(200));
+  // objetos.push_back(new GlassPot(200));
+
+  objetos.push_back(new Esfera(20));
 
   // findPositions(countElements());
   // findNewSize();
