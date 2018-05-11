@@ -6,7 +6,7 @@
 class Light
 {
 protected:
-	///static GLuint cont; // valor inicial cont = 0
+	static GLuint cont; // valor inicial cont = 0 en el cpp
 	GLuint id = GL_MAX_LIGHTS; // GL_LIGHTi
 
 	glm::fvec4 ambient = { 0.1,0.1,0.1,1 };
@@ -22,7 +22,7 @@ public:
 	void enable();
 	virtual void load();
 
-	void setAmb(glm::fvec4 amb) {}
+	void setAmb(glm::fvec4 amb);
 
 	void setPos(glm::fvec3 pos) { posDir = glm::fvec4(pos, 1.0); }
 	void setDir(glm::fvec3 dir) { posDir = glm::fvec4(dir, 0.0); } // -dir ?
