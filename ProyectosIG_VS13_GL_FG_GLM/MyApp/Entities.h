@@ -19,6 +19,10 @@ public:
 	virtual void render(glm::dmat4 const& modelViewMat);
 	virtual void update(GLuint timeElapsed) {}
 	
+	void setModelMat(glm::dmat4 const& mMat) { modelMat = mMat; }
+	void setMaterial(Material const& mt) { material = mt; }
+	void setTexture(Texture const& tex) { texture = tex; }
+
 protected:
 	Texture texture,
 			texture2;
@@ -27,10 +31,6 @@ protected:
 	glm::dmat4 modelMat;
 	virtual void draw();
 	virtual void setMvM(glm::dmat4 const& modelViewMat);
-
-	void setModelMat(glm::dmat4 const& mMat) { modelMat = mMat; }
-	void setMaterial(Material const& mt) { material = mt; }
-	void setTexture(Texture const& tex) { texture = tex; }
 };
 
 //-------------------------------------------------------------------------
@@ -199,10 +199,15 @@ class Esfera : public Entity
 {
 public:
 	GLUquadricObj * esfera;
-	Esfera(GLdouble r);
-	~Esfera() { };
+	Esfera(GLdouble radio, GLuint meridianos, GLuint paralelos);
+	~Esfera() { gluDeleteQuadric(esfera); }
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
+
+protected:
+	GLdouble radio_; 
+	GLuint meridianos_, 
+		   paralelos_;
 };
 
 //-------------------------------------------------------------------------

@@ -1,54 +1,79 @@
 #include "Scene.h"
 
+#include <gtc/matrix_transform.hpp>  
+#include <gtc/type_ptr.hpp>
+
+using namespace glm;
 //-------------------------------------------------------------------------
 
 void Scene::init()
 { // OpenGL basic setting
-  glClearColor(1.0, 1.0, 1.0, 1.0);  // background color (alpha=1 -> opaque)
-  glEnable(GL_DEPTH_TEST);  
-  
-  camera->setAZ();
-    
-  // LIGHTS
-  glEnable(GL_LIGHTING);
-  glEnable(GL_NORMALIZE);
+	glClearColor(1.0, 1.0, 1.0, 1.0);  // background color (alpha=1 -> opaque)
+	glEnable(GL_DEPTH_TEST);
 
-  // TEXTURES  
-  glEnable(GL_TEXTURE_2D);
-  glEnable(GL_BLEND);
+	camera->setAZ();
 
-  // OBJECTS
-  // objetos.push_back(new Foto(80, 60));
+	// LIGHTS
+	glEnable(GL_LIGHTING);
+	glEnable(GL_NORMALIZE);
 
-  objetos.push_back(new EjesRGB(200.0));
-  //objetos.push_back(new Triangle(200.0));
-  
-  // objetos.push_back(new RectangleTex(300, 300, 3, 2));
-  // objetos.push_back(new CubeTex(200));
+	light = new Light();
 
-  // objetos.push_back(new TriangleRGB(200.0)); 
-  // objetos.push_back(new TriPyramid(200.0, 200.0));
-  // objetos.push_back(new ContCubo(200.0));
-  // objetos.push_back(new Cubo(200.0));
+	// TEXTURES  
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
 
-   // d = new Diabolo(100.0, 200.0);
-   // objetos.push_back(d);  
+	// OBJECTS
+	// objetos.push_back(new Foto(80, 60));
 
-  // objetos.push_back(new Dragon(3000));
-  // objetos.push_back(new TriPyramidTex(200.0, 200.0));
-  // objetos.push_back(new Poliespiral({ 0, 0 }, 0, 89.5, 0.5, 0.5, 100));
+	objetos.push_back(new EjesRGB(200.0));
+	//objetos.push_back(new Triangle(200.0));
 
-  // objetos.push_back(new Suelo(800, 800, 8, 8));
+	// objetos.push_back(new RectangleTex(300, 300, 3, 2));
+	// objetos.push_back(new CubeTex(200));
+
+	// objetos.push_back(new TriangleRGB(200.0)); 
+	// objetos.push_back(new TriPyramid(200.0, 200.0));
+	// objetos.push_back(new ContCubo(200.0));
+	// objetos.push_back(new Cubo(200.0));
+
+	/*modelMat = rotate(modelMat, radians(90.0), dvec3(1, 0, 0));
+	e = new Diabolo(100.0, 200.0);
+	e->setModelMat(modelMat);
+	objetos.push_back(e);*/
+
+	// objetos.push_back(new Dragon(3000));
+	// objetos.push_back(new TriPyramidTex(200.0, 200.0));
+	// objetos.push_back(new Poliespiral({ 0, 0 }, 0, 89.5, 0.5, 0.5, 100));
+
+	// objetos.push_back(new Suelo(800, 800, 8, 8));
 
 
-  // objetos.push_back(new Grass(200, 200));
+	// objetos.push_back(new Grass(200, 200));
 
-  // objetos.push_back(new GlassPot(200));
+	// objetos.push_back(new GlassPot(200));
 
-  objetos.push_back(new Esfera(20));
+	modelMat = translate(modelMat, dvec3(200.0, 200.0, 200.0));
+	e = new Esfera(50, 20, 20);
+	e->setModelMat(modelMat);
+	objetos.push_back(e);
 
-  // findPositions(countElements());
-  // findNewSize();
+	modelMat = glm::dmat4(1.0);
+
+	modelMat = translate(modelMat, dvec3(0.0, 0.0, 0.0));
+	e = new Esfera(80, 20, 20);
+	e->setModelMat(modelMat);
+	objetos.push_back(e);
+
+	modelMat = glm::dmat4(1.0);
+
+	modelMat = translate(modelMat, dvec3(-200.0, 200.0, 200.0));
+	e = new Esfera(80, 30, 30);
+	e->setModelMat(modelMat);
+	objetos.push_back(e);
+
+	// findPositions(countElements());
+	// findNewSize();
 }
 //-------------------------------------------------------------------------
 
@@ -68,7 +93,9 @@ Scene::~Scene()
 void Scene::render()
 {
 	glMatrixMode(GL_MODELVIEW);
-	
+
+	light->load(modelMat); // Cargar luces
+
 	// camera->getVP()->setSize(w, h);
 
 	for (int i = 0; i < objetos.size(); i++){

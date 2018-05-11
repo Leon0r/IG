@@ -20,7 +20,7 @@ public:
 	~Light() { disable(); }
 	void disable();
 	void enable();
-	virtual void load();
+	virtual void load(glm::dmat4 const& modelViewMat);
 
 	void setAmb(glm::fvec4 amb);
 

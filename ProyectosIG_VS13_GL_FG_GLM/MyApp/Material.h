@@ -10,7 +10,7 @@ public:
 	~Material();
 
 	glm::fvec4 ambient, diffuse, specular; // Coeficientes de reflexion
-	GLfloat expF; // Expenente especular
+	GLfloat expF; // Expenente especular (brillo)
 	GLuint face = GL_FRONT_AND_BACK; //Ambos lados
 	GLuint sh = GL_SMOOTH; // Smooth shading
 

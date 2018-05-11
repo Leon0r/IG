@@ -465,19 +465,25 @@ void Foto::render(dmat4 const& modelViewMat)
 
 //-------------------------------------------------------------------------
 
-Esfera::Esfera(GLdouble r) : Entity() 
+Esfera::Esfera(GLdouble radio, GLuint meridianos, GLuint paralelos) : Entity(), radio_(radio), meridianos_(meridianos), paralelos_(paralelos)
 {
+	esfera = gluNewQuadric();
 
 }
 
 void Esfera::draw()
 {
-	esfera = gluNewQuadric();
-	gluQuadricDrawStyle(esfera, GLU_FILL);
-	gluSphere(esfera, 50, 10, 10);
+	gluQuadricDrawStyle(esfera, GLU_FILL);			// GLU_LINE, GLU_POINT
+	gluQuadricNormals(esfera, GLU_SMOOTH);			// GLU_FLAT
+	gluQuadricOrientation(esfera, GLU_OUTSIDE);		// GLU_INSIDE
+	gluQuadricTexture(esfera, GL_FALSE);			// GLU_TRUE
+
+	gluSphere(esfera, radio_, meridianos_, paralelos_);
 }
 
 void Esfera::render(dmat4 const& modelViewMat)
 {
+	dmat4 aMat = modelViewMat * modelMat;
+	glLoadMatrixd(value_ptr(aMat));
 	draw();
 }
