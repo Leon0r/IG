@@ -7,16 +7,15 @@
 class SpotLight : public Light
 {
 public:
-	SpotLight(GLfloat cutoff, GLfloat exponent, GLfloat dir);
+	SpotLight();
+	SpotLight(GLfloat cut, GLfloat exp, GLfloat x, GLfloat y, GLfloat z);
 	~SpotLight() {}
 
 	virtual void load(glm::dmat4 const& modelViewMat);
 	void setDirection(GLfloat x, GLfloat y, GLfloat z);
 
 protected:
-	GLfloat directionX, 
-			directionY, 
-			directionZ;
+	GLfloat direction[3];
 	GLfloat cutoff,
 			exponent;
 };

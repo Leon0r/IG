@@ -3,11 +3,16 @@
 #include <gtc/matrix_transform.hpp>  
 #include <gtc/type_ptr.hpp>
 
-SpotLight::SpotLight(GLfloat cutoff, GLfloat exponent, GLfloat dir) : Light()
+SpotLight::SpotLight() : Light(), cutoff(180.0), exponent(0.0)
+{
+	setDirection(0.0, 0.0, -1.0);
+}
+
+SpotLight::SpotLight(GLfloat cut, GLfloat exp, GLfloat x, GLfloat y, GLfloat z) : Light(), cutoff(cut), exponent(exp)
 {
 	glLightf(id, GL_SPOT_CUTOFF, cutoff);
 	glLightf(id, GL_SPOT_EXPONENT, exponent);
-	glLightfv(id, GL_SPOT_DIRECTION, value_ptr(dir));
+	setDirection(x, y, z);
 }
 
 void SpotLight::load(glm::dmat4 const& modelViewMat)
@@ -16,12 +21,12 @@ void SpotLight::load(glm::dmat4 const& modelViewMat)
 
 	glLightf(id, GL_SPOT_CUTOFF, cutoff);
 	glLightf(id, GL_SPOT_EXPONENT, exponent);
-	glLightfv(id, GL_SPOT_DIRECTION, value_ptr(dir));
+	glLightfv(id, GL_SPOT_DIRECTION, direction);
 }
 
 void SpotLight::setDirection(GLfloat x, GLfloat y, GLfloat z)
 {
-	directionX = x;
-	directionY = y;
-	directionZ = z;
+	direction[0] = x;
+	direction[1] = y;
+	direction[2] = z;
 }

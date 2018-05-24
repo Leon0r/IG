@@ -39,6 +39,8 @@ public:
 	~Camera() {};
 	Viewport* getVP() { return vp; }
 
+	glm::dvec3 getPosition() const { return eye; }
+
 	// View matrix
 	glm::dmat4 const& getViewMat() { return viewMat; };
 

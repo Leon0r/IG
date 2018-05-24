@@ -19,7 +19,7 @@ void Scene::init()
 	glEnable(GL_CULL_FACE);
 
 	cameraLight = new Light();
-	directionalLight = new SpotLight(180.0, 0.0, cameraPos.x, cameraPos.y, cameraPos.z);
+	directionalLight = new SpotLight(180.0, 0.0, camera->getPosition().x, camera->getPosition().y, camera->getPosition().z);
 
 	// TEXTURES  
 	glEnable(GL_TEXTURE_2D);
@@ -101,7 +101,7 @@ void Scene::render()
 	glMatrixMode(GL_MODELVIEW);
 
 	// Cargar luces
-	directionalLight->load(); 
+	directionalLight->load(camera->getViewMat());
 	cameraLight->load(camera->getViewMat());
 
 	// camera->getVP()->setSize(w, h);
