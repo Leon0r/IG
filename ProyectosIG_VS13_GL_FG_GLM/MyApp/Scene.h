@@ -34,18 +34,22 @@ protected:
 	Esfera* entity1;
 	Esfera* entity2;
 	Esfera* entity3;
+	EsferaLuz* lightSphere;
 
 	Texture tex1,
 			tex2,
-			tex3;
+			tex3,
+			tex4;
 
 	Material mat1,
 			 mat2, 
-			 mat3;
+			 mat3,
+			 mat4;
 
 	glm::dmat4 modelMat1,
 		       modelMat2,
-		       modelMat3;
+		       modelMat3,
+			   modelMat4;
 
 	vector<Entity*> objetos;
 	vector<pair<int, int>> pares;

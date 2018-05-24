@@ -495,7 +495,7 @@ void Esfera::render(dmat4 const& modelViewMat)
 
 EsferaLuz::EsferaLuz(GLdouble radio, GLuint meridianos, GLuint paralelos) : Esfera(radio, meridianos, paralelos)
 {
-	// spotlight = new SpotLight(100.0, 0.0, 0.0, 1.0, 0.0);
+	spotlight = new SpotLight();
 }
 
 void EsferaLuz::update(GLuint timeElapsed)
@@ -510,5 +510,11 @@ void EsferaLuz::draw()
 
 void EsferaLuz::render(dmat4 const& modelViewMat)
 {
+	glm::dmat4 aMat = modelViewMat * modelMat;
+	glLoadMatrixd(value_ptr(aMat));
 
+	spotlight->setPos(glm::dvec3(0.0, 0.0, 0.0));
+	spotlight->load(modelViewMat * modelMat);
+
+	Esfera::render(modelViewMat);
 }

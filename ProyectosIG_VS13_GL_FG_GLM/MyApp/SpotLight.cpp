@@ -13,7 +13,7 @@ SpotLight::SpotLight(GLfloat cut, GLfloat exp, GLfloat x, GLfloat y, GLfloat z) 
 {
 	glLightf(id, GL_SPOT_CUTOFF, cutoff);
 	glLightf(id, GL_SPOT_EXPONENT, exponent);
-	glm::dvec3 dir{ x,y,z };
+	glm::dvec3 dir(x, y, z);
 	setDir(dir);
 }
 

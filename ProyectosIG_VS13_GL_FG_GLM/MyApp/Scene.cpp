@@ -62,6 +62,10 @@ void Scene::init()
 	modelMat3 = translate(modelMat3, dvec3(-200.0, 200.0, 200.0));
 	mat3.materialData(Material::brass);
 	tex3.load("..\\Bmps\\sun.bmp");
+	modelMat4 = translate(modelMat4, dvec3(100.0, 0.0, 0.0));
+	mat4.materialData(Material::brass);
+	tex4.load("..\\Bmps\\sun.bmp");
+
 
 	entity1 = new Esfera(50, 20, 20);
 	entity1->setModelMat(modelMat1);
@@ -80,6 +84,12 @@ void Scene::init()
 	entity3->setTexture(tex3);
 	entity3->setMaterial(mat3);
 	objetos.push_back(entity3);
+
+	lightSphere = new EsferaLuz(90, 30, 30);
+	lightSphere->setModelMat(modelMat4);
+	lightSphere->setTexture(tex4);
+	lightSphere->setMaterial(mat4);
+	objetos.push_back(lightSphere);
 }
 //-------------------------------------------------------------------------
 
