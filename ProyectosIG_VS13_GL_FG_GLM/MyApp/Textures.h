@@ -18,7 +18,7 @@ public:
 	void save(const std::string & BMP_Name);
 
 	// Cargar y transferir a openGL
-	void bind();
+	void bind(GLint mix = GL_REPLACE); // Valor por defecto GL_REPLACE, posibles valores: GL_MODULATE, GL_ADD, ..
 	void unbind() { glBindTexture(GL_TEXTURE_2D, 0); };
 protected:
 	GLuint w, h; // Dimensiones de la imagen

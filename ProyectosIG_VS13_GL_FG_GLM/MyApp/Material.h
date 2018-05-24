@@ -14,6 +14,10 @@ public:
 	GLuint face = GL_FRONT_AND_BACK; //Ambos lados
 	GLuint sh = GL_SMOOTH; // Smooth shading
 
+	enum MaterialType {obsidian, turquoise, brass, gold, 
+		silver, blackPlastic, cyanRubber};
+
 	virtual void load();
+	void materialData(MaterialType material);
 };
 

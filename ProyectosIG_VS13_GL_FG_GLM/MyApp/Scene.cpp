@@ -16,64 +16,70 @@ void Scene::init()
 	// LIGHTS
 	glEnable(GL_LIGHTING);
 	glEnable(GL_NORMALIZE);
+	glEnable(GL_CULL_FACE);
 
-	light = new Light();
+	cameraLight = new Light();
+	directionalLight = new SpotLight(180.0, 0.0, cameraPos.x, cameraPos.y, cameraPos.z);
 
 	// TEXTURES  
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 
 	// OBJECTS
+
+	// PRACTICA 1 \\
+
 	// objetos.push_back(new Foto(80, 60));
-
 	objetos.push_back(new EjesRGB(200.0));
-	//objetos.push_back(new Triangle(200.0));
-
+	// objetos.push_back(new Triangle(200.0));
 	// objetos.push_back(new RectangleTex(300, 300, 3, 2));
 	// objetos.push_back(new CubeTex(200));
-
 	// objetos.push_back(new TriangleRGB(200.0)); 
 	// objetos.push_back(new TriPyramid(200.0, 200.0));
 	// objetos.push_back(new ContCubo(200.0));
 	// objetos.push_back(new Cubo(200.0));
-
 	/*modelMat = rotate(modelMat, radians(90.0), dvec3(1, 0, 0));
 	e = new Diabolo(100.0, 200.0);
 	e->setModelMat(modelMat);
 	objetos.push_back(e);*/
-
 	// objetos.push_back(new Dragon(3000));
 	// objetos.push_back(new TriPyramidTex(200.0, 200.0));
 	// objetos.push_back(new Poliespiral({ 0, 0 }, 0, 89.5, 0.5, 0.5, 100));
-
 	// objetos.push_back(new Suelo(800, 800, 8, 8));
-
-
 	// objetos.push_back(new Grass(200, 200));
-
 	// objetos.push_back(new GlassPot(200));
-
-	modelMat = translate(modelMat, dvec3(200.0, 200.0, 200.0));
-	e = new Esfera(50, 20, 20);
-	e->setModelMat(modelMat);
-	objetos.push_back(e);
-
-	modelMat = glm::dmat4(1.0);
-
-	modelMat = translate(modelMat, dvec3(0.0, 0.0, 0.0));
-	e = new Esfera(80, 20, 20);
-	e->setModelMat(modelMat);
-	objetos.push_back(e);
-
-	modelMat = glm::dmat4(1.0);
-
-	modelMat = translate(modelMat, dvec3(-200.0, 200.0, 200.0));
-	e = new Esfera(80, 30, 30);
-	e->setModelMat(modelMat);
-	objetos.push_back(e);
-
 	// findPositions(countElements());
 	// findNewSize();
+
+	// PRACTICA 2 \\
+
+	modelMat1 = translate(modelMat1, dvec3(200.0, 200.0, 200.0));
+	mat1.materialData(Material::brass);
+	tex1.load("..\\Bmps\\venus.bmp");
+	modelMat2 = translate(modelMat2, dvec3(0.0, 0.0, 0.0));
+	mat2.materialData(Material::brass);
+	tex2.load("..\\Bmps\\moon.bmp");
+	modelMat3 = translate(modelMat3, dvec3(-200.0, 200.0, 200.0));
+	mat3.materialData(Material::brass);
+	tex3.load("..\\Bmps\\sun.bmp");
+
+	entity1 = new Esfera(50, 20, 20);
+	entity1->setModelMat(modelMat1);
+	entity1->setTexture(tex1);
+	entity1->setMaterial(mat1);
+	objetos.push_back(entity1);
+
+	entity2 = new Esfera(80, 20, 20);
+	entity2->setModelMat(modelMat2);
+	entity2->setTexture(tex2);
+	entity2->setMaterial(mat2);
+	objetos.push_back(entity2);
+
+	entity3 = new Esfera(40, 30, 30);
+	entity3->setModelMat(modelMat3);
+	entity3->setTexture(tex3);
+	entity3->setMaterial(mat3);
+	objetos.push_back(entity3);
 }
 //-------------------------------------------------------------------------
 
@@ -94,7 +100,9 @@ void Scene::render()
 {
 	glMatrixMode(GL_MODELVIEW);
 
-	light->load(modelMat); // Cargar luces
+	// Cargar luces
+	directionalLight->load(); 
+	cameraLight->load(camera->getViewMat());
 
 	// camera->getVP()->setSize(w, h);
 

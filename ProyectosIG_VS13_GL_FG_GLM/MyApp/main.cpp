@@ -169,6 +169,12 @@ void key(unsigned char key, int x, int y)
   case 'z':
 	  ToggleAnimation();
 	  break;
+  case 'b':
+	  break;
+  case 'n':
+	  break;
+  case 'm':
+	  break;
   default:
     need_redisplay = false;
     break;

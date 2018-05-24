@@ -7,6 +7,7 @@
 #include "Mesh.h"
 #include "Textures.h"
 #include "Material.h"
+#include "SpotLight.h"
 
 //-------------------------------------------------------------------------
 
@@ -114,7 +115,7 @@ class Poliespiral : public Entity
 public:
 	Poliespiral(glm::dvec2 verIni, GLdouble angIni, GLdouble increAng,
 		GLdouble ladoIni, GLdouble incrLado, GLuint numVert);
-	~Poliespiral() { };
+	virtual ~Poliespiral() { };
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
 };
@@ -125,7 +126,7 @@ class RectangleTex : public Entity
 public:
 	RectangleTex(GLdouble w, GLdouble h);
 	RectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil);
-	~RectangleTex() { };
+	virtual ~RectangleTex() { };
 	virtual void draw();
 };
 
@@ -136,7 +137,7 @@ public:
 	Mesh* mesh2 = nullptr;
 	
 	CubeTex(GLdouble l);
-	~CubeTex() { };
+	virtual ~CubeTex() { };
 	virtual void draw();
 	virtual void drawTop(); // Pinta los rectangulos de las tapas
 	virtual void render(glm::dmat4 const& modelViewMat);
@@ -147,7 +148,7 @@ class TriPyramidTex : public Entity
 {
 public:
 	TriPyramidTex(GLdouble r, GLdouble h);
-	~TriPyramidTex() { };
+	virtual ~TriPyramidTex() { };
 	virtual void draw();
 };
 
@@ -156,7 +157,7 @@ class Suelo : public Entity
 {
 public:
 	Suelo(GLdouble w, GLdouble h, GLint repCols, GLint repFils);
-	~Suelo() { };
+	virtual ~Suelo() { };
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
 };
@@ -166,7 +167,7 @@ class GlassPot : public Entity
 {
 public:
 	GlassPot(GLdouble l);
-	~GlassPot() { };
+	virtual ~GlassPot() { };
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
 };
@@ -176,7 +177,7 @@ class Grass : public Entity
 {
 public:
 	Grass(GLdouble w, GLdouble h);
-	~Grass() { };
+	virtual ~Grass() { };
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
 };
@@ -187,7 +188,7 @@ class Foto : public Entity
 public:
 	GLuint timer = 0;
 	Foto(GLdouble w, GLdouble h);
-	~Foto() { };
+	virtual ~Foto() { };
 	virtual void update(GLuint timeElapsed);
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
@@ -199,14 +200,34 @@ class Esfera : public Entity
 {
 public:
 	GLUquadricObj * esfera;
+	Esfera() {}
 	Esfera(GLdouble radio, GLuint meridianos, GLuint paralelos);
-	~Esfera() { gluDeleteQuadric(esfera); }
+	virtual ~Esfera() { gluDeleteQuadric(esfera); }
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
 
 protected:
 	GLdouble radio_; 
 	GLuint meridianos_, 
+		   paralelos_;
+};
+
+//-------------------------------------------------------------------------
+class EsferaLuz : public Esfera
+{
+public:
+	GLUquadricObj * esfera;
+	EsferaLuz() {}
+	EsferaLuz(GLdouble radio, GLuint meridianos, GLuint paralelos);
+	virtual ~EsferaLuz() { gluDeleteQuadric(esfera); }
+	virtual void update(GLuint timeElapsed);
+	virtual void draw();
+	virtual void render(glm::dmat4 const& modelViewMat);
+
+protected:
+	SpotLight* spotlight;
+	GLdouble radio_;
+	GLuint meridianos_,
 		   paralelos_;
 };
 

@@ -67,10 +67,10 @@ void Texture::save(const std::string & BMP_Name)
 	textures.save_bmp24BGR(BMP_Name);
 }
 
-void Texture::bind(){
+void Texture::bind(GLint mix){
 	glBindTexture(GL_TEXTURE_2D, id); // Activa la textura
 	// La función de mezcla de colores no queda guardada en el objeto
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, mix);
 }
 
 void Texture::init(){

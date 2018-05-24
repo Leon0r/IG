@@ -7,18 +7,17 @@ using namespace glm;
 
 //-------------------------------------------------------------------------
 
-void Entity::render(dmat4 const& modelViewMat) 
-{ 
-	setMvM(modelViewMat); 
-	draw(); 
+void Entity::render(dmat4 const& modelViewMat)
+{
+	setMvM(modelViewMat);
+	draw();
 }
 //-------------------------------------------------------------------------
 
-void Entity::draw() 
-{ 
-	material.load();
-  if (mesh != nullptr) 
-    mesh -> draw(); 
+void Entity::draw()
+{
+	if (mesh != nullptr)
+		mesh->draw();
 }
 //-------------------------------------------------------------------------
 
@@ -30,16 +29,16 @@ void Entity::setMvM(dmat4 const& modelViewMat)
 }
 //-------------------------------------------------------------------------
 
-EjesRGB::EjesRGB(GLdouble l): Entity() 
+EjesRGB::EjesRGB(GLdouble l) : Entity()
 {
-  mesh = Mesh::generateAxesRGB(l);
+	mesh = Mesh::generateAxesRGB(l);
 }
 
 void EjesRGB::draw()
 {
-  glLineWidth(2);
-  mesh->draw();
-  glLineWidth(1);
+	glLineWidth(2);
+	mesh->draw();
+	glLineWidth(1);
 }
 //-------------------------------------------------------------------------
 
@@ -104,13 +103,13 @@ Diabolo::Diabolo(GLdouble r, GLdouble h) : Entity()
 	mesh = Mesh::generateTriPyramidTex(r, h);
 	texture.load("..\\Bmps\\floris.bmp"); // cargamos la imagen
 
-	modelMat = translate(modelMat, dvec3(50.0, r + 1.0 , -200.0));
+	modelMat = translate(modelMat, dvec3(50.0, r + 1.0, -200.0));
 }
 
 void Diabolo::update(GLuint timeElapsed)
 {
 	angle = mod(angle + 0.25 * timeElapsed, 360.0);
-	
+
 }
 
 void Diabolo::draw()
@@ -121,11 +120,11 @@ void Diabolo::draw()
 	texture.unbind();
 }
 
-void Diabolo::render(dmat4 const& modelViewMat){
+void Diabolo::render(dmat4 const& modelViewMat) {
 	// modelMat = rotate(modelMat, angle, dvec3(0, 0, 1)); // Para girarlo con la 'G'
 	// angle = 0;
 
-	dmat4 aMat = modelViewMat*modelMat;
+	dmat4 aMat = modelViewMat * modelMat;
 
 	aMat = rotate(aMat, radians(angle), dvec3(0, 0, 1));
 
@@ -166,15 +165,15 @@ void Cubo::draw()
 	glLineWidth(1);
 }
 
-void Cubo::render(dmat4 const& modelViewMat){
-	
-	dmat4 aMat = modelViewMat*modelMat;
+void Cubo::render(dmat4 const& modelViewMat) {
+
+	dmat4 aMat = modelViewMat * modelMat;
 	mesh->draw();
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glPolygonMode(GL_BACK, GL_LINE);
 
-	aMat = modelViewMat*modelMat;
+	aMat = modelViewMat * modelMat;
 
 	aMat = rotate(aMat, radians(-90.0), dvec3(1, 0, 0));
 	aMat = translate(aMat, dvec3(0, 0, -100.0));
@@ -183,7 +182,7 @@ void Cubo::render(dmat4 const& modelViewMat){
 	glLoadMatrixd(value_ptr(aMat));
 	mesh2->draw();
 
-	aMat = modelViewMat*modelMat;
+	aMat = modelViewMat * modelMat;
 
 	aMat = rotate(aMat, radians(90.0), dvec3(1, 0, 0));
 	aMat = rotate(aMat, radians(45.0), dvec3(0, -1, 0));
@@ -207,11 +206,11 @@ void Dragon::draw()
 	glLineWidth(1);
 }
 
-void Dragon::render(dmat4 const& modelViewMat){
-	dmat4 aMat = modelViewMat*modelMat;
+void Dragon::render(dmat4 const& modelViewMat) {
+	dmat4 aMat = modelViewMat * modelMat;
 	aMat = translate(aMat, dvec3(-40.0, -170.0, 0.0));
 	aMat = scale(aMat, dvec3(40.0, 40.0, 0.0));
-	
+
 	Entity::render(aMat);
 }
 //-------------------------------------------------------------------------
@@ -231,8 +230,8 @@ void Poliespiral::draw()
 	glLineWidth(1);
 }
 
-void Poliespiral::render(dmat4 const& modelViewMat){
-	dmat4 aMat = modelViewMat*modelMat;
+void Poliespiral::render(dmat4 const& modelViewMat) {
+	dmat4 aMat = modelViewMat * modelMat;
 	aMat = scale(aMat, dvec3(10.0, 10.0, 0.0));
 
 	Entity::render(aMat);
@@ -245,7 +244,7 @@ RectangleTex::RectangleTex(GLdouble w, GLdouble h) : Entity()
 	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
 }
 
-RectangleTex::RectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil){
+RectangleTex::RectangleTex(GLdouble w, GLdouble h, GLint numCol, GLint numFil) {
 	mesh = Mesh::generateRectangleTex(w, h, numCol, numFil); // con coord. de textura
 	texture.load("..\\Bmps\\Zelda.bmp"); // cargamos la imagen
 }
@@ -259,8 +258,8 @@ void RectangleTex::draw()
 }
 //-------------------------------------------------------------------------
 
-CubeTex::CubeTex(GLdouble l){
-	
+CubeTex::CubeTex(GLdouble l) {
+
 	mesh = Mesh::generateContCuboTex(l);
 	mesh2 = Mesh::generateRectangleTex(l, l);
 	// Cargamos las imagenes
@@ -299,21 +298,21 @@ void CubeTex::drawTop()
 void CubeTex::render(dmat4 const& modelViewMat)
 {
 	glEnable(GL_CULL_FACE);
-	
-	dmat4 aMat = modelViewMat*modelMat;
+
+	dmat4 aMat = modelViewMat * modelMat;
 
 	glLoadMatrixd(value_ptr(aMat));
 	draw();
 
-	aMat = modelViewMat*modelMat;
+	aMat = modelViewMat * modelMat;
 
 	aMat = rotate(aMat, radians(-90.0), dvec3(1, 0, 0));
 	aMat = translate(aMat, dvec3(0, 0, -100.0));
 
-	glLoadMatrixd(value_ptr(aMat));	
+	glLoadMatrixd(value_ptr(aMat));
 	drawTop();
 
-	aMat = modelViewMat*modelMat;
+	aMat = modelViewMat * modelMat;
 
 	aMat = rotate(aMat, radians(90.0), dvec3(1, 0, 0));
 	aMat = rotate(aMat, radians(45.0), dvec3(0, -1, 0));
@@ -360,7 +359,7 @@ void Suelo::draw()
 void Suelo::render(dmat4 const& modelViewMat)
 {
 	glEnable(GL_REPEAT);
-	dmat4 aMat = modelViewMat*modelMat;
+	dmat4 aMat = modelViewMat * modelMat;
 	glLoadMatrixd(value_ptr(aMat));
 	draw();
 	glDisable(GL_REPEAT);
@@ -386,7 +385,7 @@ void GlassPot::render(dmat4 const& modelViewMat)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDepthMask(GL_FALSE);
 
-	dmat4 aMat = modelViewMat*modelMat;
+	dmat4 aMat = modelViewMat * modelMat;
 	glLoadMatrixd(value_ptr(aMat));
 	draw();
 
@@ -414,7 +413,7 @@ void Grass::render(dmat4 const& modelViewMat)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // Hace transparente al principio
 	glDepthMask(GL_FALSE);
 
-	dmat4 aMat = modelViewMat*modelMat;
+	dmat4 aMat = modelViewMat * modelMat;
 
 	glLoadMatrixd(value_ptr(aMat));
 	draw();
@@ -458,7 +457,7 @@ void Foto::draw()
 
 void Foto::render(dmat4 const& modelViewMat)
 {
-	dmat4 aMat = modelViewMat*modelMat;
+	dmat4 aMat = modelViewMat * modelMat;
 	glLoadMatrixd(value_ptr(aMat));
 	draw();
 }
@@ -476,14 +475,40 @@ void Esfera::draw()
 	gluQuadricDrawStyle(esfera, GLU_FILL);			// GLU_LINE, GLU_POINT
 	gluQuadricNormals(esfera, GLU_SMOOTH);			// GLU_FLAT
 	gluQuadricOrientation(esfera, GLU_OUTSIDE);		// GLU_INSIDE
-	gluQuadricTexture(esfera, GL_FALSE);			// GLU_TRUE
+	gluQuadricTexture(esfera, GL_TRUE);				// GLU_FALSE
 
+	texture.bind(GL_MODULATE);
+	material.load();
 	gluSphere(esfera, radio_, meridianos_, paralelos_);
+	texture.unbind();
 }
 
 void Esfera::render(dmat4 const& modelViewMat)
 {
+	glMatrixMode(GL_MODELVIEW);
 	dmat4 aMat = modelViewMat * modelMat;
 	glLoadMatrixd(value_ptr(aMat));
 	draw();
+}
+
+//-------------------------------------------------------------------------
+
+EsferaLuz::EsferaLuz(GLdouble radio, GLuint meridianos, GLuint paralelos) : Esfera(radio, meridianos, paralelos)
+{
+	// spotlight = new SpotLight(100.0, 0.0, 0.0, 1.0, 0.0);
+}
+
+void EsferaLuz::update(GLuint timeElapsed)
+{
+
+}
+
+void EsferaLuz::draw()
+{
+
+}
+
+void EsferaLuz::render(dmat4 const& modelViewMat)
+{
+
 }
