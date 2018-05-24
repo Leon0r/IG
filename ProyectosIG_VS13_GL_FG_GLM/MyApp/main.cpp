@@ -169,9 +169,19 @@ void key(unsigned char key, int x, int y)
   case 'z':
 	  ToggleAnimation();
 	  break;
+  case 'B':
+	  scene.getSpotLight()->disable();
+	  break;
   case 'b':
+	  scene.getSpotLight()->enable();
+	  break;
+  case 'N':
+	  scene.getDirectionalLight()->disable();
 	  break;
   case 'n':
+	  scene.getDirectionalLight()->enable();
+	  break;
+  case 'M':
 	  break;
   case 'm':
 	  break;

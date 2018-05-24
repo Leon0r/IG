@@ -22,11 +22,14 @@ public:
 	void init();
 	void render();
 	void update(GLuint timeElapsed);
+
+	SpotLight* getSpotLight() { return spotLight; }
+	Light* getDirectionalLight() { return directionalLight; }
 protected:
 	Camera * camera;
 
-	SpotLight* directionalLight;
-	Light* cameraLight;
+	SpotLight* spotLight;
+	Light* directionalLight;
 
 	Esfera* entity1;
 	Esfera* entity2;
