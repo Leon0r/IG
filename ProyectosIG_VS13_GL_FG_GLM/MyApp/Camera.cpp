@@ -13,15 +13,15 @@ void Viewport::setSize(GLsizei aw, GLsizei ah)
 	h = ah;
 	set();
 }
- //-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
 
-void Viewport::setPosition(GLsizei ax, GLsizei ay) 
+void Viewport::setPosition(GLsizei ax, GLsizei ay)
 {
 	x = ax;
 	y = ay;
 	set();
 }
- //-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
 
 void Viewport::set()
 {
@@ -64,14 +64,14 @@ void Camera::set3D()
 // Cambia de proyeccion ortogonal a perspectiva
 void Camera::setPML()
 {
-	if (orto) 
+	if (orto)
 	{
 		glMatrixMode(GL_PROJECTION);
 		projMat = ortho(xLeft*factScale, xRight*factScale, yBot*factScale, yTop*factScale, nearVal, farVal);
 		glLoadMatrixd(value_ptr(projMat));
 		glMatrixMode(GL_MODELVIEW);
 	}
-	else 
+	else
 	{
 		nearVal = yTop;
 		glMatrixMode(GL_PROJECTION);
@@ -119,7 +119,7 @@ void Camera::rotatePY(GLdouble incrPitch, GLdouble incrYaw) // Valores entre 0 y
 
 	// Limitar los angulos
 	if (pitchCam > 89.5)
-		 pitchCam = 89.5;
+		pitchCam = 89.5;
 
 	else if (pitchCam <= -89.5)
 		pitchCam = -89.5;

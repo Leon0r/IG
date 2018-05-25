@@ -8,6 +8,7 @@
 #include "Textures.h"
 #include "Material.h"
 #include "SpotLight.h"
+#include "IndexMesh.h"
 
 //-------------------------------------------------------------------------
 
@@ -19,14 +20,14 @@ public:
 
 	virtual void render(glm::dmat4 const& modelViewMat);
 	virtual void update(GLuint timeElapsed) {}
-	
+
 	void setModelMat(glm::dmat4 const& mMat) { modelMat = mMat; }
 	void setMaterial(Material const& mt) { material = mt; }
 	void setTexture(Texture const& tex) { texture = tex; }
 
 protected:
 	Texture texture,
-			texture2;
+		texture2;
 	Material material;
 	Mesh* mesh = nullptr;
 	glm::dmat4 modelMat;
@@ -36,12 +37,12 @@ protected:
 
 //-------------------------------------------------------------------------
 
-class EjesRGB : public Entity 
+class EjesRGB : public Entity
 {
 public:
-  EjesRGB(GLdouble l);
-  ~EjesRGB() { };
-  virtual void draw();
+	EjesRGB(GLdouble l);
+	~EjesRGB() { };
+	virtual void draw();
 };
 
 //-------------------------------------------------------------------------
@@ -87,13 +88,13 @@ public:
 	virtual void update(GLuint timeElapsed);
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
-	void incrementaAngulo(){ angle += 5.0; };
+	void incrementaAngulo() { angle += 5.0; };
 };
 //-------------------------------------------------------------------------
 class Cubo : public Entity
 {
 public:
-	Mesh* mesh2 = nullptr;
+	Mesh * mesh2 = nullptr;
 
 	Cubo(GLdouble l);
 	~Cubo() { };
@@ -134,8 +135,8 @@ public:
 class CubeTex : public Entity
 {
 public:
-	Mesh* mesh2 = nullptr;
-	
+	Mesh * mesh2 = nullptr;
+
 	CubeTex(GLdouble l);
 	virtual ~CubeTex() { };
 	virtual void draw();
@@ -199,37 +200,64 @@ public:
 class Esfera : public Entity
 {
 public:
-	GLUquadricObj * esfera;
-	Esfera() {}
 	Esfera(GLdouble radio, GLuint meridianos, GLuint paralelos);
 	virtual ~Esfera() { gluDeleteQuadric(esfera); }
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
 
 protected:
-	GLdouble radio_; 
-	GLuint meridianos_, 
-		   paralelos_;
+	GLUquadricObj * esfera;
+	GLdouble radio_;
+	GLuint meridianos_,
+		paralelos_;
 };
 
 //-------------------------------------------------------------------------
 class EsferaLuz : public Esfera
 {
 public:
-	GLUquadricObj * esfera;
-	EsferaLuz() {}
 	EsferaLuz(GLdouble radio, GLuint meridianos, GLuint paralelos);
 	virtual ~EsferaLuz() { gluDeleteQuadric(esfera); }
 	virtual void update(GLuint timeElapsed);
 	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
+	void aumentaAngulo() { ang += 0.1; }
+	SpotLight* getSpotLight() { return spotlight; }
 
 protected:
-	SpotLight* spotlight;
-	GLdouble radio_;
-	GLuint meridianos_,
-		   paralelos_;
+	SpotLight * spotlight;
+	Esfera* esferaPeq1;
+	Esfera* esferaPeq2;
+
+	Material materialPeq;
+	glm::dmat4 modelMatPeq1;
+	glm::dmat4 modelMatPeq2;
+
+	GLdouble ang;
+	GLdouble tAng;
+	GLdouble speed;
+	glm::dvec3 T_ang;
+
+	GLdouble cx;
+	GLdouble cy;
+	GLdouble cz;
+
+	void renderEsferaPeq1(glm::dmat4 const& modelViewMat);
+	void renderEsferaPeq2(glm::dmat4 const& modelViewMat);
 };
 
+//-------------------------------------------------------------------------
+class Terreno : public Entity
+{
+public:
+	Terreno(std::string fileName);
+	Terreno() {};
+	virtual ~Terreno() {};
+
+	virtual void render(glm::dmat4 const& modelViewMat);
+	virtual void draw();
+private:
+	IndexMesh * indexMesh;
+};
 //-------------------------------------------------------------------------
 #endif //_H_Entities_H_

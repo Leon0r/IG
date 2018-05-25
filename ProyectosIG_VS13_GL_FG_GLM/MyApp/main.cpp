@@ -182,8 +182,10 @@ void key(unsigned char key, int x, int y)
 	  scene.getDirectionalLight()->enable();
 	  break;
   case 'M':
+	  scene.getLightSphere()->getSpotLight()->disable();
 	  break;
   case 'm':
+	  scene.getLightSphere()->getSpotLight()->enable();
 	  break;
   default:
     need_redisplay = false;

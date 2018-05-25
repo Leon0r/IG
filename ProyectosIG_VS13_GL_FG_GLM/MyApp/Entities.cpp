@@ -495,12 +495,35 @@ void Esfera::render(dmat4 const& modelViewMat)
 
 EsferaLuz::EsferaLuz(GLdouble radio, GLuint meridianos, GLuint paralelos) : Esfera(radio, meridianos, paralelos)
 {
-	spotlight = new SpotLight();
+	esfera = gluNewQuadric();
+	spotlight = new SpotLight(100.0, 0.0, 0.0, 1.0, 0.0);
+
+	materialPeq.materialData(Material::brass);
+
+	modelMatPeq1 = glm::translate(modelMatPeq1, glm::dvec3(-3 * (radio / 2), 200.0, 0.0));
+	modelMatPeq2 = glm::translate(modelMatPeq2, glm::dvec3(3 * (radio / 2), 200.0, 0.0));
+
+	esferaPeq1 = new Esfera(radio / 2, 100.0, 100.0);
+	esferaPeq2 = new Esfera(radio / 2, 100.0, 100.0);
+	esferaPeq1->setMaterial(materialPeq);
+	esferaPeq2->setMaterial(materialPeq);
+	esferaPeq1->setModelMat(modelMatPeq1);
+	esferaPeq2->setModelMat(modelMatPeq2);
+
+	ang = 0;
+	tAng = 0;
+	speed = 2.0;
+
+	cx = 512;
+	cy = radio * 2;
+	cz = -cx;
 }
 
 void EsferaLuz::update(GLuint timeElapsed)
 {
-
+	ang = fmod(ang + speed, 360.0);
+	tAng = (tAng + 0.02);
+	T_ang = glm::dvec3(cx*cos(tAng), cy*sin(tAng)*sin(tAng), cz*sin(tAng)*cos(tAng));
 }
 
 void EsferaLuz::draw()
@@ -511,10 +534,54 @@ void EsferaLuz::draw()
 void EsferaLuz::render(dmat4 const& modelViewMat)
 {
 	glm::dmat4 aMat = modelViewMat * modelMat;
+	aMat = translate(modelViewMat, T_ang);
+	aMat = rotate(aMat, radians(ang), dvec3(0, 1, 0));
 	glLoadMatrixd(value_ptr(aMat));
 
-	spotlight->setPos(glm::dvec3(0.0, 0.0, 0.0));
+	spotlight->setPos(T_ang);
 	spotlight->load(modelViewMat * modelMat);
 
-	Esfera::render(modelViewMat);
+	Esfera::render(aMat);
+
+	renderEsferaPeq1(aMat);
+	renderEsferaPeq2(aMat);
+}
+
+void EsferaLuz::renderEsferaPeq1(glm::dmat4 const & modelViewMat)
+{
+	glm::dmat4 aMat = modelViewMat * modelMatPeq1;
+	aMat = translate(modelViewMat, glm::dvec3(-radio_ - (radio_ / 2), 200, 0));
+	glLoadMatrixd(value_ptr(aMat));
+	esferaPeq1->draw();
+}
+
+void EsferaLuz::renderEsferaPeq2(glm::dmat4 const & modelViewMat)
+{
+	glm::dmat4 aMat = modelViewMat * modelMatPeq2;
+	aMat = translate(modelViewMat, glm::dvec3(-radio_ - (radio_ / 2), 200, 0));
+	glLoadMatrixd(value_ptr(aMat));
+	esferaPeq2->draw();
+}
+
+//-------------------------------------------------------------------------
+
+Terreno::Terreno(std::string fileName)
+{
+	indexMesh = IndexMesh::generateTerrain(fileName);
+}
+
+void Terreno::render(glm::dmat4 const & modelViewMat)
+{
+	glMatrixMode(GL_MODELVIEW);
+	glm::dmat4 aMat = modelViewMat * modelMat;
+	glLoadMatrixd(value_ptr(aMat));
+	draw();
+}
+
+void Terreno::draw()
+{
+	texture.bind(GL_MODULATE);
+	material.load();
+	indexMesh->draw();
+	texture.unbind();
 }

@@ -25,7 +25,6 @@ public:
 	void setAmb(glm::fvec4 amb) { ambient = amb; }
 	void setDif(glm::fvec4 dif) { diffuse = dif; }
 	void setSpec(glm::fvec4 spec) { specular = spec; }
-
 	void setPos(glm::fvec3 pos) { posDir = glm::fvec4(pos, 1.0); }
 	void setDir(glm::fvec3 dir) { posDir = glm::fvec4(dir, 0.0); } // -dir ?
 };

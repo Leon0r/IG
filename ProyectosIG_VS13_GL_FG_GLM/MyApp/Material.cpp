@@ -7,7 +7,6 @@ Material::Material()
 {
 }
 
-
 Material::~Material()
 {
 }

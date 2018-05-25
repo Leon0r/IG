@@ -25,6 +25,7 @@ public:
 
 	SpotLight* getSpotLight() { return spotLight; }
 	Light* getDirectionalLight() { return directionalLight; }
+	EsferaLuz* getLightSphere() { return lightSphere; }
 protected:
 	Camera * camera;
 
@@ -35,21 +36,25 @@ protected:
 	Esfera* entity2;
 	Esfera* entity3;
 	EsferaLuz* lightSphere;
+	Terreno* terreno;
 
 	Texture tex1,
-			tex2,
-			tex3,
-			tex4;
+		tex2,
+		tex3,
+		tex4,
+		tex5;
 
 	Material mat1,
-			 mat2, 
-			 mat3,
-			 mat4;
+		mat2,
+		mat3,
+		mat4,
+		mat5;
 
 	glm::dmat4 modelMat1,
-		       modelMat2,
-		       modelMat3,
-			   modelMat4;
+		modelMat2,
+		modelMat3,
+		modelMat4,
+		modelMat5;
 
 	vector<Entity*> objetos;
 	vector<pair<int, int>> pares;
