@@ -499,6 +499,8 @@ EsferaLuz::EsferaLuz(GLdouble radio, GLuint meridianos, GLuint paralelos) : Esfe
 	spotlight = new SpotLight(100.0, 0.0, 0.0, 1.0, 0.0);
 
 	materialPeq.materialData(Material::brass);
+	tex1.load("..\\Bmps\\moon.bmp");
+	tex2.load("..\\Bmps\\moon.bmp");
 
 	modelMatPeq1 = glm::translate(modelMatPeq1, glm::dvec3(-3 * (radio / 2), 200.0, 0.0));
 	modelMatPeq2 = glm::translate(modelMatPeq2, glm::dvec3(3 * (radio / 2), 200.0, 0.0));
@@ -507,6 +509,8 @@ EsferaLuz::EsferaLuz(GLdouble radio, GLuint meridianos, GLuint paralelos) : Esfe
 	esferaPeq2 = new Esfera(radio / 2, 100.0, 100.0);
 	esferaPeq1->setMaterial(materialPeq);
 	esferaPeq2->setMaterial(materialPeq);
+	esferaPeq1->setTexture(tex1);
+	esferaPeq2->setTexture(tex2);
 	esferaPeq1->setModelMat(modelMatPeq1);
 	esferaPeq2->setModelMat(modelMatPeq2);
 
@@ -526,22 +530,20 @@ void EsferaLuz::update(GLuint timeElapsed)
 	T_ang = glm::dvec3(cx*cos(tAng), cy*sin(tAng)*sin(tAng), cz*sin(tAng)*cos(tAng));
 }
 
-void EsferaLuz::draw()
-{
 
-}
 
 void EsferaLuz::render(dmat4 const& modelViewMat)
 {
 	glm::dmat4 aMat = modelViewMat * modelMat;
 	aMat = translate(modelViewMat, T_ang);
 	aMat = rotate(aMat, radians(ang), dvec3(0, 1, 0));
-	glLoadMatrixd(value_ptr(aMat));
+
 
 	spotlight->setPos(T_ang);
-	spotlight->load(modelViewMat * modelMat);
+	spotlight->load(aMat);
 
-	Esfera::render(aMat);
+	glLoadMatrixd(value_ptr(aMat));
+	draw();
 
 	renderEsferaPeq1(aMat);
 	renderEsferaPeq2(aMat);
@@ -550,7 +552,7 @@ void EsferaLuz::render(dmat4 const& modelViewMat)
 void EsferaLuz::renderEsferaPeq1(glm::dmat4 const & modelViewMat)
 {
 	glm::dmat4 aMat = modelViewMat * modelMatPeq1;
-	aMat = translate(modelViewMat, glm::dvec3(-radio_ - (radio_ / 2), 200, 0));
+	aMat = translate(modelViewMat, glm::dvec3(-radio_ - (radio_ / 2), 0, 0));
 	glLoadMatrixd(value_ptr(aMat));
 	esferaPeq1->draw();
 }
@@ -558,7 +560,7 @@ void EsferaLuz::renderEsferaPeq1(glm::dmat4 const & modelViewMat)
 void EsferaLuz::renderEsferaPeq2(glm::dmat4 const & modelViewMat)
 {
 	glm::dmat4 aMat = modelViewMat * modelMatPeq2;
-	aMat = translate(modelViewMat, glm::dvec3(-radio_ - (radio_ / 2), 200, 0));
+	aMat = translate(modelViewMat, glm::dvec3(radio_ + (radio_ / 2), 0, 0));
 	glLoadMatrixd(value_ptr(aMat));
 	esferaPeq2->draw();
 }

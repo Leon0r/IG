@@ -219,7 +219,6 @@ public:
 	EsferaLuz(GLdouble radio, GLuint meridianos, GLuint paralelos);
 	virtual ~EsferaLuz() { gluDeleteQuadric(esfera); }
 	virtual void update(GLuint timeElapsed);
-	virtual void draw();
 	virtual void render(glm::dmat4 const& modelViewMat);
 	void aumentaAngulo() { ang += 0.1; }
 	SpotLight* getSpotLight() { return spotlight; }
@@ -232,6 +231,9 @@ protected:
 	Material materialPeq;
 	glm::dmat4 modelMatPeq1;
 	glm::dmat4 modelMatPeq2;
+
+	Texture tex1;
+	Texture tex2;
 
 	GLdouble ang;
 	GLdouble tAng;
