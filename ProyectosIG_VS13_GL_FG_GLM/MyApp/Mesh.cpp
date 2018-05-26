@@ -25,7 +25,10 @@ void Mesh::draw()
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glTexCoordPointer(2, GL_DOUBLE, 0, texture);
 		}
-
+		if (normals != nullptr){
+			glEnableClientState(GL_NORMAL_ARRAY); 
+			glNormalPointer(GL_DOUBLE, 0, normals);
+		}
 		glDrawArrays(type, 0, numVertices);   // kind of primitives, first, count
 
 		glDisableClientState(GL_NORMAL_ARRAY);

@@ -20,18 +20,18 @@ void IndexMesh::draw()
 		if (colors != nullptr) {
 			glEnableClientState(GL_COLOR_ARRAY);
 			glColorPointer(4, GL_DOUBLE, 0, colors);
-			if (coordsTexture != nullptr) {
-				glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-				glTexCoordPointer(2, GL_DOUBLE, 0, coordsTexture);
-				if (normals != nullptr) {
-					glEnableClientState(GL_NORMAL_ARRAY);
-					glNormalPointer(GL_DOUBLE, 0, normals);
-					if (indices != nullptr) {
-						glEnableClientState(GL_INDEX_ARRAY);
-						glIndexPointer(GL_UNSIGNED_INT, 0, indices);
-					}
-				}
-			}
+		}
+		if (coordsTexture != nullptr) {
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glTexCoordPointer(2, GL_DOUBLE, 0, coordsTexture);
+		}
+		if (normals != nullptr) {
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glNormalPointer(GL_DOUBLE, 0, normals);
+		}
+		if (indices != nullptr) {
+			glEnableClientState(GL_INDEX_ARRAY);
+			glIndexPointer(GL_UNSIGNED_INT, 0, indices);
 		}
 
 		glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, indices);
@@ -43,6 +43,8 @@ void IndexMesh::draw()
 	}
 }
 
+// lado = dimensiones totales de la rejilla
+// numDiv = numero de celdas en las que se divide (tanto por fila como por columna)
 IndexMesh * IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 {
 	IndexMesh* m = new IndexMesh();
@@ -54,9 +56,9 @@ IndexMesh * IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 	m->numVertices = numVer * numVer;
 	m->vertices = new glm::dvec3[m->numVertices];
 
-	GLuint x = -lado / 2;
-	GLuint y = 0;
-	GLuint z = -lado / 2;
+	GLint x = -lado / 2;
+	GLint y = 0;
+	GLint z = -lado / 2;
 
 	for (int i = 0; i < numVer; i++)
 	{
@@ -64,7 +66,7 @@ IndexMesh * IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 
 		for (int j = 0; j < numVer; j++)
 		{
-			m->vertices[i * numVer + j] = glm::dvec3(x, 0, z);
+			m->vertices[(i * numVer) + j] = glm::dvec3(x, y, z);
 			x += incr;
 		}
 
@@ -72,7 +74,7 @@ IndexMesh * IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 	}
 
 	// Generar índices
-	m->numIndices = numDiv * numDiv * 6;
+	m->numIndices = numDiv*numDiv * 6;
 	m->indices = new GLuint[m->numIndices];
 
 	GLuint i = 0;

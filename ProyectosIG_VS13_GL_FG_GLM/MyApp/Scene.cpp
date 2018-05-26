@@ -93,11 +93,11 @@ void Scene::init()
 	lightSphere->setMaterial(mat4);
 	objetos.push_back(lightSphere);
 
-	//terreno = new Terreno("..\\Bmps\\terrain.raw");
-	//terreno->setTexture(tex5);
-	//terreno->setMaterial(mat5);
-	//// terreno->setModelMat(modelMat5);
-	//objetos.push_back(terreno);
+	terreno = new Terreno("..\\Bmps\\terrain.raw");
+	terreno->setTexture(tex5);
+	terreno->setMaterial(mat5);
+	// terreno->setModelMat(modelMat5);
+	objetos.push_back(terreno);
 }
 //-------------------------------------------------------------------------
 
