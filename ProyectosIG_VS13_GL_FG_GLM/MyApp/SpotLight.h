@@ -13,6 +13,7 @@ public:
 
 	virtual void load(glm::dmat4 const& modelViewMat);
 	void setDirection(GLfloat x, GLfloat y, GLfloat z);
+	void setPosPos(glm::dvec3 pospos){ posPos = { pospos.x, pospos.y, pospos.z, 1 }; }
 
 protected:
 	GLfloat direction[3];
