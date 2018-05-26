@@ -66,7 +66,7 @@ void Scene::init()
 	modelMat4 = translate(modelMat4, dvec3(0.0, -500.0, 0.0));
 	mat4.materialData(Material::brass);
 	tex4.load("..\\Bmps\\sun.bmp");
-	modelMat5 = translate(modelMat5, glm::dvec3(-200.0, -300.0, -100.0));
+	modelMat5 = translate(modelMat5, glm::dvec3(-200.0, -200.0, -100.0));
 	mat5.materialData(Material::brass);
 
 	entity1 = new Esfera(50, 20, 20);
@@ -96,7 +96,7 @@ void Scene::init()
 	terreno = new Terreno("..\\Bmps\\terrain.raw");
 	terreno->setTexture(tex5);
 	terreno->setMaterial(mat5);
-	// terreno->setModelMat(modelMat5);
+	terreno->setModelMat(modelMat5);
 	objetos.push_back(terreno);
 }
 //-------------------------------------------------------------------------
