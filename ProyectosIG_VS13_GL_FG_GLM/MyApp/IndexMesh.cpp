@@ -43,16 +43,16 @@ void IndexMesh::draw()
 	}
 }
 
-// lado = dimensiones totales de la rejilla
-// numDiv = numero de celdas en las que se divide (tanto por fila como por columna)
+// Genera el array de vertices y el array de indices de una cuadrícula centrada en el plano y = 0
+// lado (dimensiones totales de la cuadricula) y numDiv (celdas en las que se divide por fila y por columna))
 IndexMesh * IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 {
 	IndexMesh* m = new IndexMesh();
 
-	GLdouble incr = lado / numDiv;		// incremento para la coordenada x, y la z
-	GLuint numVer = numDiv + 1;		// num. de vértices por filas y por columnas
+	GLdouble incr = lado / numDiv;		// Incremento para la coordenada x, y la z
+	GLuint numVer = numDiv + 1;			// Num. de vértices por filas y por columnas
 
-	// Generar vértices
+	// Genera vertices
 	m->numVertices = numVer * numVer;
 	m->vertices = new glm::dvec3[m->numVertices];
 
@@ -73,7 +73,7 @@ IndexMesh * IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 		z += incr;
 	}
 
-	// Generar índices
+	// Genera indices
 	m->numIndices = numDiv*numDiv * 6;
 	m->indices = new GLuint[m->numIndices];
 
@@ -86,7 +86,6 @@ IndexMesh * IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 		{
 			iv = f * numVer + c;
 
-			// Primer triángulo
 			m->indices[i] = iv;
 			i++;
 			m->indices[i] = iv + numVer;
@@ -94,7 +93,6 @@ IndexMesh * IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 			m->indices[i] = iv + 1;
 			i++;
 
-			// Segundo triángulo
 			m->indices[i] = iv + 1;
 			i++;
 			m->indices[i] = iv + numVer;
@@ -108,6 +106,7 @@ IndexMesh * IndexMesh::generateGrid(GLdouble lado, GLuint numDiv)
 
 }
 
+// Genera una malla formada por una cuadrícula de lado 256 * 8 y (256 x 256) celdas.
 IndexMesh * IndexMesh::generateTerrain(std::string fileName)
 {
 	std::ifstream file(fileName, std::ios::binary);

@@ -68,6 +68,7 @@ void Scene::init()
 	tex4.load("..\\Bmps\\sun.bmp");
 	modelMat5 = translate(modelMat5, glm::dvec3(-200.0, -200.0, -100.0));
 	mat5.materialData(Material::brass);
+	tex5.load("..\\Bmps\\terreno.bmp");
 
 	entity1 = new Esfera(50, 20, 20);
 	entity1->setModelMat(modelMat1);

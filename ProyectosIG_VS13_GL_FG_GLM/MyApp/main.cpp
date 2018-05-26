@@ -176,10 +176,10 @@ void key(unsigned char key, int x, int y)
 	  scene.getSpotLight()->enable();
 	  break;
   case 'N':
-	  scene.getDirectionalLight()->disable();
+	  scene.getDirectionalLight()->enable();
 	  break;
   case 'n':
-	  scene.getDirectionalLight()->enable();
+	  scene.getDirectionalLight()->disable();
 	  break;
   case 'M':
 	  scene.getLightSphere()->getSpotLight()->disable();
