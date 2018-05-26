@@ -16,6 +16,8 @@ void Entity::render(dmat4 const& modelViewMat)
 
 void Entity::draw()
 {
+	material.load();
+
 	if (mesh != nullptr)
 		mesh->draw();
 }
@@ -496,7 +498,7 @@ void Esfera::render(dmat4 const& modelViewMat)
 EsferaLuz::EsferaLuz(GLdouble radio, GLuint meridianos, GLuint paralelos) : Esfera(radio, meridianos, paralelos)
 {
 	esfera = gluNewQuadric();
-	spotlight = new SpotLight(100.0, 0.0, 0.0, 1.0, 0.0);
+	spotlight = new SpotLight(30.0, 0.0, 0, -1, 0);
 
 	materialPeq.materialData(Material::brass);
 	tex1.load("..\\Bmps\\moon.bmp");

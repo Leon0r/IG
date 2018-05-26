@@ -63,7 +63,7 @@ void Scene::init()
 	modelMat3 = translate(modelMat3, dvec3(-150.0, 100.0, 0.0));
 	mat3.materialData(Material::brass);
 	tex3.load("..\\Bmps\\sun.bmp");
-	modelMat4 = translate(modelMat4, dvec3(0.0, 200.0, 0.0));
+	modelMat4 = translate(modelMat4, dvec3(0.0, -500.0, 0.0));
 	mat4.materialData(Material::brass);
 	tex4.load("..\\Bmps\\sun.bmp");
 	modelMat5 = translate(modelMat5, glm::dvec3(-200.0, -300.0, -100.0));
@@ -93,11 +93,11 @@ void Scene::init()
 	lightSphere->setMaterial(mat4);
 	objetos.push_back(lightSphere);
 
-	terreno = new Terreno("..\\Bmps\\terrain.raw");
-	terreno->setTexture(tex5);
-	terreno->setMaterial(mat5);
-	// terreno->setModelMat(modelMat5);
-	objetos.push_back(terreno);
+	//terreno = new Terreno("..\\Bmps\\terrain.raw");
+	//terreno->setTexture(tex5);
+	//terreno->setMaterial(mat5);
+	//// terreno->setModelMat(modelMat5);
+	//objetos.push_back(terreno);
 }
 //-------------------------------------------------------------------------
 

@@ -13,6 +13,7 @@ SpotLight::SpotLight(GLfloat cut, GLfloat exp, GLfloat x, GLfloat y, GLfloat z) 
 	glLightf(id, GL_SPOT_CUTOFF, cutoff);
 	glLightf(id, GL_SPOT_EXPONENT, exponent);
 	setDirection(x, y, z);
+	glLightfv(id, GL_SPOT_DIRECTION, direction);
 }
 
 void SpotLight::load(glm::dmat4 const& modelViewMat)
@@ -22,6 +23,7 @@ void SpotLight::load(glm::dmat4 const& modelViewMat)
 	glLightf(id, GL_SPOT_CUTOFF, cutoff);
 	glLightf(id, GL_SPOT_EXPONENT, exponent);
 	glLightfv(id, GL_SPOT_DIRECTION, direction);
+	glLightfv(id, GL_POSITION, value_ptr(posPos));
 }
 
 void SpotLight::setDirection(GLfloat x, GLfloat y, GLfloat z)

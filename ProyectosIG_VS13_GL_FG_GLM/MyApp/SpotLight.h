@@ -18,4 +18,5 @@ protected:
 	GLfloat direction[3];
 	GLfloat cutoff,
 		exponent;
+	glm::fvec4 posPos = { 0, 0, 1, 1 };// w = 0 -> vector
 };
