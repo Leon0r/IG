@@ -16,7 +16,8 @@ public:
 
 	enum MaterialType {
 		obsidian, turquoise, brass, gold,
-		silver, blackPlastic, cyanRubber
+		silver, blackPlastic, cyanRubber,
+		bronze, chrome, copper, pewter, polishedSilver
 	};
 
 	virtual void load();

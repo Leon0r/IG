@@ -58,16 +58,16 @@ void Scene::init()
 	mat1.materialData(Material::brass);
 	tex1.load("..\\Bmps\\venus.bmp");
 	modelMat2 = translate(modelMat2, dvec3(200.0, 150.0, 0.0));
-	mat2.materialData(Material::brass);
+	mat2.materialData(Material::obsidian);
 	tex2.load("..\\Bmps\\moon.bmp");
 	modelMat3 = translate(modelMat3, dvec3(-150.0, 100.0, 0.0));
-	mat3.materialData(Material::brass);
+	mat3.materialData(Material::copper);
 	tex3.load("..\\Bmps\\sun.bmp");
 	modelMat4 = translate(modelMat4, dvec3(0.0, -500.0, 0.0));
-	mat4.materialData(Material::brass);
+	mat4.materialData(Material::polishedSilver);
 	tex4.load("..\\Bmps\\sun.bmp");
 	modelMat5 = translate(modelMat5, glm::dvec3(-200.0, -200.0, -100.0));
-	mat5.materialData(Material::brass);
+	mat5.materialData(Material::turquoise);
 	tex5.load("..\\Bmps\\terreno.bmp");
 
 	entity1 = new Esfera(50, 20, 20);
